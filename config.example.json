@@ -1,0 +1,32 @@
+{
+  "botName": "Bckertost Bot",
+  "embedColor": "#f59e0b",
+  "tickets": {
+    "enabled": true,
+    "categoryId": "PASTE_CATEGORY_ID",
+    "supportRoleId": "PASTE_SUPPORT_ROLE_ID",
+    "transcriptChannelId": "PASTE_LOG_CHANNEL_ID",
+    "panelTitle": "Support Tickets",
+    "panelDescription": "Klicke auf den Button, um ein Ticket zu erstellen.",
+    "channelNamePrefix": "ticket"
+  },
+  "applications": {
+    "enabled": true,
+    "reviewChannelId": "PASTE_APPLICATION_REVIEW_CHANNEL_ID",
+    "staffRoleId": "PASTE_STAFF_ROLE_ID",
+    "panelTitle": "Team Bewerbung",
+    "panelDescription": "Starte hier deine Bewerbung per DM.",
+    "questions": [
+      "Wie heisst du und wie alt bist du?",
+      "Warum willst du ins Team?",
+      "Welche Erfahrung bringst du mit?",
+      "Wie viele Stunden pro Woche hast du Zeit?"
+    ]
+  },
+  "giveaways": {
+    "enabled": true
+  },
+  "games": {
+    "enabled": true
+  }
+}
