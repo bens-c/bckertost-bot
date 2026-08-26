@@ -11,21 +11,68 @@ const defaults = {
     enabled: true,
     categoryId: "",
     supportRoleId: "",
+    devRoleIds: [],
     transcriptChannelId: "",
     panelTitle: "Support Tickets",
-    panelDescription: "Klicke auf den Button, um ein Ticket zu erstellen.",
-    channelNamePrefix: "ticket"
+    panelDescription: "Click the button below to open a ticket.",
+    channelNamePrefix: "ticket",
+    types: [
+      {
+        "key": "claim-giveaway",
+        "label": "Claim Giveaway"
+      },
+      {
+        "key": "report-someone",
+        "label": "Report Someone"
+      },
+      {
+        "key": "sponsor-giveaway",
+        "label": "Sponsor Giveaway"
+      },
+      {
+        "key": "partner-request",
+        "label": "Partner Request"
+      },
+      {
+        "key": "support",
+        "label": "Support"
+      }
+    ]
   },
   applications: {
     enabled: true,
     reviewChannelId: "",
     staffRoleId: "",
-    panelTitle: "Team Bewerbung",
-    panelDescription: "Starte hier deine Bewerbung per DM.",
-    questions: []
+    panelTitle: "Staff Application",
+    panelDescription: "Start your application here via DM.",
+    questions: [],
+    roles: []
   },
   giveaways: {
-    enabled: true
+    enabled: true,
+    sponsorPings: {
+      qdRoleId: "",
+      extraRoleId: "",
+      dailyRoleId: "",
+      weeklyRoleId: ""
+    }
+  },
+  selfRoles: {
+    panelTitle: "Self Roles",
+    panelDescription: "Click the buttons below to toggle your roles.",
+    roles: []
+  },
+  modLogs: {
+    channelId: ""
+  },
+  serverStats: {
+    enabled: false,
+    categoryId: "",
+    channelIds: {
+      members: "",
+      bots: "",
+      boosts: ""
+    }
   },
   games: {
     enabled: true
@@ -61,7 +108,7 @@ function mergeConfig(base, override) {
 function loadConfig() {
   if (!fs.existsSync(configPath)) {
     throw new Error(
-      "config.json fehlt. Kopiere config.example.json nach config.json und trage deine IDs ein."
+      "config.json is missing. Copy config.example.json to config.json and fill in your IDs."
     );
   }
 

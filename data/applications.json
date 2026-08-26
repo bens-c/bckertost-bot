@@ -1,0 +1,83 @@
+[
+  {
+    "id": "51c5827b-32ba-4247-92af-cdebba32b3ec",
+    "userId": "1292715845939630100",
+    "roleKey": "supporter",
+    "roleLabel": "Supporter",
+    "targetRoleId": "1528175395587756123",
+    "questions": [
+      "What is your name and age?",
+      "Why do you want to join the team?",
+      "What experience do you have?",
+      "How many hours per week are you available?"
+    ],
+    "answers": [
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "status": "reject",
+    "reviewerId": "1292715845939630100",
+    "interviewedById": null,
+    "decisionReason": "Please get more community activity first.",
+    "reviewMessageId": "1534383395159806039",
+    "createdAt": 1785895908814,
+    "reviewedAt": 1785895919943,
+    "reviewChannelId": "1532353532655570974"
+  },
+  {
+    "id": "eae7aeed-e79d-49ee-911b-e37a28cad378",
+    "userId": "1290588891723726953",
+    "roleKey": "mod",
+    "roleLabel": "Mod",
+    "targetRoleId": "1528176134515196115",
+    "questions": [
+      "What is your name and age?",
+      "Why do you want to join the team?",
+      "What experience do you have?",
+      "How many hours per week are you available?"
+    ],
+    "answers": [
+      "Jannes 14",
+      "because im helpfull and i dont like rassismus",
+      "very many hours in the discord server and a proud member",
+      "many"
+    ],
+    "status": "accept",
+    "reviewerId": "1492816164789686365",
+    "interviewedById": "1292715845939630100",
+    "decisionReason": "Gute Käse",
+    "reviewMessageId": "1534880124489564251",
+    "createdAt": 1786014338085,
+    "reviewedAt": 1786014458026,
+    "reviewChannelId": "1532353532655570974"
+  },
+  {
+    "id": "ee290469-626e-411a-926e-be8c6d88e146",
+    "userId": "1514722152723779804",
+    "roleKey": "mod",
+    "roleLabel": "Mod",
+    "targetRoleId": "1528176134515196115",
+    "questions": [
+      "What is your name and age?",
+      "Why do you want to join the team?",
+      "What experience do you have?",
+      "How many hours per week are you available?"
+    ],
+    "answers": [
+      "my name is Danny and my age is private but i will dm bckertost my age if he keeps it private",
+      "mostly because when i wanna do a giveaway i have to pay a mod then he does the giveaway then ppl dont vouch me and stuff so yeah",
+      "oh i had a co owner experience mod experience helper experience so yeah",
+      "almost everyday except for sunday and tuesday im not that online i have to go outside for a bit and come back but other then that im lowk always online"
+    ],
+    "status": "reject",
+    "reviewerId": "1492816164789686365",
+    "interviewedById": null,
+    "decisionReason": "You Can Open a Ticket and Sponsor a Ticket of you want",
+    "reviewMessageId": "1538527806705762426",
+    "createdAt": 1786884013385,
+    "reviewedAt": 1786884233010,
+    "reviewChannelId": "1523069494044524736"
+  }
+]

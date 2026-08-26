@@ -1,45 +1,50 @@
 # Discord Bot Starter
 
-Ein konfigurierbarer Discord-Bot mit Tickets, Giveaways, Bewerbungen per DM und kleinen Minigames.
+A configurable Discord bot with tickets, giveaways, DM applications, and small minigames.
 
 ## Features
 
-- Giveaways mit UI ueber ein Modal
+- Giveaways created through a UI modal
 - `coinflip`
-- `fastclick` fuer Reaktionsspiele
-- Bewerbungen per DM mit frei definierbaren Fragen
-- Minigames: Zahl raten und Schere-Stein-Papier
-- Ticket-System mit Panel und konfigurierbaren IDs
-- JSON-Speicher fuer Giveaways und Tickets
+- `fastclick` reaction game
+- DM applications with fully configurable questions
+- Configurable application role choices like `Supporter` and `Mod`
+- Application review buttons for accept and reject decisions
+- Applicant DM notifications with reviewer name and reason
+- Auto role assignment on accepted applications
+- Minigames: Guess the Number and Rock Paper Scissors
+- Ticket system with panel and configurable IDs
+- JSON storage for giveaways and tickets
 
 ## Setup
 
-1. Installiere die Pakete:
+1. Install dependencies:
 
    ```bash
    npm install
    ```
 
-2. Kopiere `.env.example` nach `.env`
+2. Copy `.env.example` to `.env`
 
-3. Trage in `.env` ein:
+3. Fill in `.env`:
 
    - `DISCORD_TOKEN`
    - `CLIENT_ID`
-   - `GUILD_ID` fuer schnelles Testen auf deinem Server
+   - `GUILD_ID` for faster testing on your server
 
-4. Kopiere `config.example.json` nach `config.json`
+4. Copy `config.example.json` to `config.json`
 
-5. Trage in `config.json` deine Channel-, Rollen- und Kategorie-IDs ein
+5. Fill in your channel, role, and category IDs in `config.json`
 
 ## Discord Developer Portal
 
-Aktiviere fuer den Bot im Developer Portal diese Privileged Gateway Intents:
+You do not need any privileged gateway intents for this version.
 
-- `Message Content Intent`
-- `Server Members Intent` ist optional
+Optional:
 
-Beim Invite solltest du mindestens diese Scopes setzen:
+- `Server Members Intent` if you want to add member-based features later
+
+Use at least these scopes in your invite URL:
 
 - `bot`
 - `applications.commands`
@@ -56,23 +61,26 @@ Beim Invite solltest du mindestens diese Scopes setzen:
 - `/ticket-close`
 - `/application-panel`
 
-## Ticket-Konfiguration
+## Ticket Configuration
 
 In `config.json`:
 
-- `tickets.categoryId`: Kategorie fuer neue Tickets
-- `tickets.supportRoleId`: Rolle, die Zugriff auf Tickets bekommt
-- `tickets.transcriptChannelId`: Log-Kanal fuer geschlossene Tickets
-- `tickets.panelTitle` und `tickets.panelDescription`: Text des Panels
-- `tickets.channelNamePrefix`: Prefix neuer Ticket-Kanaele
+- `tickets.categoryId`: category for new tickets
+- `tickets.supportRoleId`: role that gets access to tickets
+- `tickets.devRoleIds`: roles that should always see all tickets
+- `tickets.transcriptChannelId`: log channel for closed tickets
+- `tickets.panelTitle` and `tickets.panelDescription`: panel text
+- `tickets.channelNamePrefix`: prefix for new ticket channels
+- `tickets.types`: ticket categories shown in the panel
 
-## Bewerbungs-Konfiguration
+## Application Configuration
 
 In `config.json`:
 
-- `applications.reviewChannelId`: Kanal fuer eingehende Bewerbungen
-- `applications.staffRoleId`: Rolle, die bei neuer Bewerbung gepingt wird
-- `applications.questions`: Fragen, die in DMs gestellt werden
+- `applications.reviewChannelId`: channel for incoming applications
+- `applications.staffRoleId`: role pinged when a new application arrives
+- `applications.roles`: selectable application targets with `key`, `label`, and `roleId`
+- `applications.questions`: questions asked in DMs
 
 ## Run
 
@@ -80,8 +88,27 @@ In `config.json`:
 npm start
 ```
 
-Fuer Entwicklung:
+For development:
 
 ```bash
 npm run dev
 ```
+
+## MongoDB (optional)
+
+This project supports storing runtime data in MongoDB instead of the local `data/` JSON files.
+
+- Set these environment variables in your `.env` file:
+
+   - `MONGO_URI` — MongoDB connection URI (required to enable Mongo storage)
+   - `MONGO_DB_NAME` — optional database name (defaults to `bckertost`)
+
+- After installing dependencies, you can migrate existing `data/*.json` files to MongoDB with:
+
+```bash
+node scripts/migrate-to-mongo.js
+```
+
+The script will connect to `MONGO_URI`, create collections named after each JSON file (for example `giveaways.json` → collection `giveaways`) and upsert a single document with `_id: "data"` containing the file contents.
+
+If you prefer to keep local JSON storage, do not set `MONGO_URI`.

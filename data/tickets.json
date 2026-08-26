@@ -1,0 +1,879 @@
+[
+  {},
+  {
+    "id": "ad94b716-bef6-485b-8ef3-cb4bb4733f51",
+    "guildId": "1293547276714905723",
+    "channelId": "1534039258958925968",
+    "ownerId": "1322579558272340150",
+    "createdById": "1322579558272340150",
+    "typeKey": "partner-request",
+    "typeLabel": "Partner Request",
+    "reason": "",
+    "details": {
+      "dcLink": "ill send ad when ticket open",
+      "memberCount": "like 30"
+    },
+    "closed": true,
+    "createdAt": 1785813860655,
+    "panelMessageId": "1534039289581797490",
+    "closedAt": 1786624967991
+  },
+  {
+    "id": "e658565c-ae3d-454e-9e8b-6d0300e46963",
+    "guildId": "1293547276714905723",
+    "channelId": "1534314375689797724",
+    "ownerId": "1492816164789686365",
+    "createdById": "1492816164789686365",
+    "typeKey": "sponsor-giveaway",
+    "typeLabel": "Sponsor Giveaway",
+    "reason": "",
+    "details": {
+      "amount": "I"
+    },
+    "closed": true,
+    "createdAt": 1785879454232,
+    "panelMessageId": "1534314382530449531",
+    "closedAt": 1785879459303
+  },
+  {
+    "id": "ff2704fe-cf8d-4fa0-923c-dd3623226214",
+    "guildId": "1293547276714905723",
+    "channelId": "1534497010223288340",
+    "ownerId": "1502891825676030023",
+    "createdById": "1502891825676030023",
+    "typeKey": "partner-request",
+    "typeLabel": "Partner Request",
+    "reason": "",
+    "details": {
+      "dcLink": "https://discord.gg/TjQ6vsqdMn",
+      "memberCount": "136"
+    },
+    "closed": true,
+    "createdAt": 1785922996971,
+    "panelMessageId": "1534497015038480475",
+    "closedAt": 1785923561949
+  },
+  {
+    "id": "4606770d-0f1e-4c07-a58c-88e13e6264b7",
+    "guildId": "1293547276714905723",
+    "channelId": "1534902760577695774",
+    "ownerId": "1417865733953818734",
+    "createdById": "1417865733953818734",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "I will send proof",
+    "details": {
+      "giveawayHostRaw": "Mod Lulu",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "10m each",
+      "ign": "Tryhardjonas"
+    },
+    "closed": true,
+    "createdAt": 1786019735544,
+    "panelMessageId": "1534902788277010635",
+    "closedAt": 1786027507909
+  },
+  {
+    "id": "2156ef24-f22d-4dcd-a34f-a84bb4f1d316",
+    "guildId": "1293547276714905723",
+    "channelId": "1534911571279613962",
+    "ownerId": "1514722152723779804",
+    "createdById": "1514722152723779804",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "I won the giveaway named \"20M (10M each)\"",
+    "details": {
+      "giveawayHostRaw": "lulu099327",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "10M",
+      "ign": "DanNy100M"
+    },
+    "closed": true,
+    "createdAt": 1786021836075,
+    "panelMessageId": "1534911575469588645",
+    "closedAt": 1786034463736
+  },
+  {
+    "id": "059636a0-4481-4059-9d2b-657be8d7c648",
+    "guildId": "1293547276714905723",
+    "channelId": "1534947675403976826",
+    "ownerId": "1417865733953818734",
+    "createdById": "1417865733953818734",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "",
+    "details": {
+      "giveawayHostRaw": "lulu",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "10m",
+      "ign": "tryhardjonas"
+    },
+    "closed": true,
+    "createdAt": 1786030444161,
+    "panelMessageId": "1534947680055333028",
+    "closedAt": 1786030516334
+  },
+  {
+    "id": "2e29b7db-a34e-45f7-9604-8366f47cfae8",
+    "guildId": "1293547276714905723",
+    "channelId": "1535200455439945749",
+    "ownerId": "1426172688476405784",
+    "createdById": "1426172688476405784",
+    "typeKey": "partner-request",
+    "typeLabel": "Partner Request",
+    "reason": "",
+    "details": {
+      "dcLink": "https://discord.gg/Amjrthghc",
+      "memberCount": "28"
+    },
+    "closed": true,
+    "createdAt": 1786090711441,
+    "panelMessageId": "1535200486515540029",
+    "closedAt": 1786090843011
+  },
+  {
+    "id": "024c6037-611f-4ee3-b336-0e293c67fe18",
+    "guildId": "1293547276714905723",
+    "channelId": "1535595622277578833",
+    "ownerId": "1426172688476405784",
+    "createdById": "1426172688476405784",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "qd",
+    "details": {
+      "giveawayHostRaw": "bcker",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "2m",
+      "ign": "n1k8x"
+    },
+    "closed": true,
+    "createdAt": 1786184926579,
+    "panelMessageId": "1535595626610303058",
+    "closedAt": 1786184989389
+  },
+  {
+    "id": "ab384f31-1dbc-4e33-9f27-b3d37487a5b7",
+    "guildId": "1293547276714905723",
+    "channelId": "1535658969182244966",
+    "ownerId": "1327649526638706690",
+    "createdById": "1327649526638706690",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "",
+    "details": {
+      "giveawayHostRaw": "@Bckertost",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "2m",
+      "ign": "Philplayer25"
+    },
+    "closed": true,
+    "createdAt": 1786200029637,
+    "panelMessageId": "1535658972684746784",
+    "closedAt": 1786655387550
+  },
+  {
+    "id": "ddd5469a-ee31-4fa9-affe-335eb0b9e62f",
+    "guildId": "1293547276714905723",
+    "channelId": "1535740948657471551",
+    "ownerId": "1292715845939630100",
+    "createdById": "1292715845939630100",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "",
+    "details": {
+      "giveawayHostRaw": "f",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "f",
+      "ign": "f"
+    },
+    "closed": true,
+    "createdAt": 1786219575117,
+    "panelMessageId": "1535740954005213277",
+    "closedAt": 1786219580475
+  },
+  {
+    "id": "bb7ee548-f504-4843-a254-0c46514bc34d",
+    "guildId": "1293547276714905723",
+    "channelId": "1535741910235357324",
+    "ownerId": "1514722152723779804",
+    "createdById": "1514722152723779804",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "",
+    "details": {
+      "giveawayHostRaw": "Bckertost",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "2M",
+      "ign": "DanNy100M"
+    },
+    "closed": true,
+    "createdAt": 1786219804284,
+    "panelMessageId": "1535741914823921665",
+    "closedAt": 1786292920165
+  },
+  {
+    "id": "b3f5ca6a-9055-4c9a-b151-93b480c0112f",
+    "guildId": "1293547276714905723",
+    "channelId": "1536049379474145302",
+    "ownerId": "1514722152723779804",
+    "createdById": "1514722152723779804",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "",
+    "details": {
+      "giveawayHostRaw": "Bckertost",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "2m + 2m + 10m ( if i remember correctly i dont remember if i got the 2m 2 times )",
+      "ign": "DanNy100M"
+    },
+    "closed": true,
+    "createdAt": 1786293110745,
+    "panelMessageId": "1536049383202619393",
+    "closedAt": 1786539819669
+  },
+  {
+    "id": "3620d2ae-4a34-41bb-bce7-4e86ffe6b532",
+    "guildId": "1293547276714905723",
+    "channelId": "1536362611166281848",
+    "ownerId": "1417865733953818734",
+    "createdById": "1417865733953818734",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "",
+    "details": {
+      "giveawayHostRaw": "@bckertost",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "2m",
+      "ign": "tryhardjonas"
+    },
+    "closed": true,
+    "createdAt": 1786367790922,
+    "panelMessageId": "1536362614995550229",
+    "closedAt": 1786378891911
+  },
+  {
+    "id": "519efccb-eff4-45f1-8bec-7028fc26a971",
+    "guildId": "1293547276714905723",
+    "channelId": "1536777248730914876",
+    "ownerId": "803252668445229117",
+    "createdById": "803252668445229117",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "",
+    "details": {
+      "giveawayHostRaw": "Keep",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "2,5m",
+      "ign": "Paulo308"
+    },
+    "closed": true,
+    "createdAt": 1786466648380,
+    "panelMessageId": "1536777253629722705",
+    "closedAt": 1786624909502
+  },
+  {
+    "id": "100d38d2-a5de-4e3a-a795-4efa29771699",
+    "guildId": "1293547276714905723",
+    "channelId": "1537326765611945995",
+    "ownerId": "1492816164789686365",
+    "createdById": "1492816164789686365",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "",
+    "details": {
+      "giveawayHostRaw": "Lulu",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "10m",
+      "ign": "Bckertost"
+    },
+    "closed": true,
+    "createdAt": 1786597663665,
+    "panelMessageId": "1537326771354210326",
+    "closedAt": 1786620179625
+  },
+  {
+    "id": "06dd6658-9a2b-4190-a628-810559024f9c",
+    "guildId": "1293547276714905723",
+    "channelId": "1537411721197781013",
+    "ownerId": "1514722152723779804",
+    "createdById": "1514722152723779804",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "",
+    "details": {
+      "giveawayHostRaw": "LuLu guy",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "10m les goo",
+      "ign": "DanNy100M"
+    },
+    "closed": true,
+    "createdAt": 1786617918261,
+    "panelMessageId": "1537411724708155392",
+    "closedAt": 1786618097545
+  },
+  {
+    "id": "328ae402-4f68-4cf5-8bf6-4837024cdf66",
+    "guildId": "1293547276714905723",
+    "channelId": "1537412730519027803",
+    "ownerId": "1514722152723779804",
+    "createdById": "1514722152723779804",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "i made a ticket but this lulu guy pinged me so ticket closed",
+    "details": {
+      "giveawayHostRaw": "lulu",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "10M",
+      "ign": "DanNy100M"
+    },
+    "closed": true,
+    "createdAt": 1786618158967,
+    "panelMessageId": "1537412734516334662",
+    "closedAt": 1786624056786
+  },
+  {
+    "id": "101e301b-d21a-4a5b-ba0b-d8e108d825c7",
+    "guildId": "1293547276714905723",
+    "channelId": "1537415423593680926",
+    "ownerId": "1514722152723779804",
+    "createdById": "1514722152723779804",
+    "typeKey": "sponsor-giveaway",
+    "typeLabel": "Sponsor Giveaway",
+    "reason": "",
+    "details": {
+      "amount": "5m"
+    },
+    "closed": true,
+    "createdAt": 1786618800944,
+    "panelMessageId": "1537415429222572132",
+    "closedAt": 1786624871845
+  },
+  {
+    "id": "9dc59d98-3ac1-4845-9ef5-d386e73432aa",
+    "guildId": "1293547276714905723",
+    "channelId": "1537484722442211469",
+    "ownerId": "1292715845939630100",
+    "createdById": "1292715845939630100",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "",
+    "details": {
+      "giveawayHostRaw": "@Bckertost",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "2M",
+      "ign": "Gurkenmannnn"
+    },
+    "closed": true,
+    "createdAt": 1786635323163,
+    "panelMessageId": "1537484726497968260",
+    "closedAt": 1786656327557
+  },
+  {
+    "id": "97782723-e539-4fed-930c-dddb071e3725",
+    "guildId": "1293547276714905723",
+    "channelId": "1538215062488219658",
+    "ownerId": "1417865733953818734",
+    "createdById": "1417865733953818734",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "",
+    "details": {
+      "giveawayHostRaw": "Bckertost",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "2m",
+      "ign": "Tryhardjonas"
+    },
+    "closed": true,
+    "createdAt": 1786809450057,
+    "panelMessageId": "1538215067458478192",
+    "closedAt": 1787147396028
+  },
+  {
+    "id": "128a477c-a31b-491f-bd12-a55ab01b8ec4",
+    "guildId": "1293547276714905723",
+    "channelId": "1538216127308632104",
+    "ownerId": "803252668445229117",
+    "createdById": "803252668445229117",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "",
+    "details": {
+      "giveawayHostRaw": "x",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "2m",
+      "ign": "paulo308"
+    },
+    "closed": true,
+    "createdAt": 1786809703645,
+    "panelMessageId": "1538216131658129529",
+    "closedAt": 1787203264076
+  },
+  {
+    "id": "e9510348-fe36-4640-a04b-dfda2e6ef3d1",
+    "guildId": "1293547276714905723",
+    "channelId": "1538218087642439720",
+    "ownerId": "1513710132968685634",
+    "createdById": "1513710132968685634",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "idk what that mean",
+    "details": {
+      "giveawayHostRaw": "Bckertost",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "2m",
+      "ign": "vextionmc"
+    },
+    "closed": true,
+    "createdAt": 1786810171279,
+    "panelMessageId": "1538218092176478269",
+    "closedAt": 1787202897178
+  },
+  {
+    "id": "d8d5ff91-82f6-40a0-9f14-98f42abaf497",
+    "guildId": "1293547276714905723",
+    "channelId": "1538220448045862912",
+    "ownerId": "1514722152723779804",
+    "createdById": "1514722152723779804",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "",
+    "details": {
+      "giveawayHostRaw": "bckertost",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "2m",
+      "ign": "DanNy100M"
+    },
+    "closed": true,
+    "createdAt": 1786810733892,
+    "panelMessageId": "1538220451984187487",
+    "closedAt": 1787141809934
+  },
+  {
+    "id": "1d7e61ea-3e00-4862-b97c-3525d0af5949",
+    "guildId": "1293547276714905723",
+    "channelId": "1538222843744100352",
+    "ownerId": "1327558926874578986",
+    "createdById": "1327558926874578986",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "Was für nen ding",
+    "details": {
+      "giveawayHostRaw": "Bckertost",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "2m",
+      "ign": ".legitwind323591"
+    },
+    "closed": true,
+    "createdAt": 1786811304935,
+    "panelMessageId": "1538222847057723513",
+    "closedAt": 1786812852693
+  },
+  {
+    "id": "e04d986f-2518-476a-85b0-37bc49cd0241",
+    "guildId": "1293547276714905723",
+    "channelId": "1538514393958981743",
+    "ownerId": "1502891825676030023",
+    "createdById": "1502891825676030023",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "what",
+    "details": {
+      "giveawayHostRaw": "@bckertost.",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "2M",
+      "ign": ".warrencream"
+    },
+    "closed": true,
+    "createdAt": 1786880815958,
+    "panelMessageId": "1538514397566210059",
+    "closedAt": 1786953775719
+  },
+  {
+    "id": "9e02a743-3067-481b-b992-6281a1470d07",
+    "guildId": "1293547276714905723",
+    "channelId": "1538584387854143538",
+    "ownerId": "1406692325832265990",
+    "createdById": "1406692325832265990",
+    "typeKey": "partner-request",
+    "typeLabel": "Partner Request",
+    "reason": "",
+    "details": {
+      "dcLink": "https://discord.gg/UAUxPXayV",
+      "memberCount": "102"
+    },
+    "closed": true,
+    "createdAt": 1786897503750,
+    "panelMessageId": "1538584392576929955",
+    "closedAt": 1787078771052
+  },
+  {
+    "id": "2b3e786e-ec02-457d-83c5-b468dc7ec845",
+    "guildId": "1293547276714905723",
+    "channelId": "1539342466157649920",
+    "ownerId": "1327649526638706690",
+    "createdById": "1327649526638706690",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "",
+    "details": {
+      "giveawayHostRaw": "@Bckertost",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "2M",
+      "ign": "Philplayer25"
+    },
+    "closed": true,
+    "createdAt": 1787078243751,
+    "panelMessageId": "1539342469529993297",
+    "closedAt": 1787141728428
+  },
+  {
+    "id": "db6e67e0-649a-4aca-ae29-3659bffbf378",
+    "guildId": "1293547276714905723",
+    "channelId": "1539757175147204760",
+    "ownerId": "803252668445229117",
+    "createdById": "803252668445229117",
+    "typeKey": "partner-request",
+    "typeLabel": "Partner Request",
+    "reason": "",
+    "details": {
+      "dcLink": "Look ticket",
+      "memberCount": "1k+"
+    },
+    "closed": true,
+    "createdAt": 1787177118278,
+    "panelMessageId": "1539757179286855731",
+    "closedAt": 1787218422989
+  },
+  {
+    "id": "3da48bdf-6659-47a9-87e9-d47daae975d2",
+    "guildId": "1293547276714905723",
+    "channelId": "1540089466247577733",
+    "ownerId": "803252668445229117",
+    "createdById": "803252668445229117",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "",
+    "details": {
+      "giveawayHostRaw": "becka",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "2m",
+      "ign": "paulo308"
+    },
+    "closed": true,
+    "createdAt": 1787256342447,
+    "panelMessageId": "1540089469200371753",
+    "closedAt": 1787314066304
+  },
+  {
+    "id": "0173a259-0ebf-4108-9a57-254aa6264090",
+    "guildId": "1293547276714905723",
+    "channelId": "1540089545398161449",
+    "ownerId": "1514722152723779804",
+    "createdById": "1514722152723779804",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "",
+    "details": {
+      "giveawayHostRaw": "bckertost",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "2m",
+      "ign": "DanNy100M"
+    },
+    "closed": true,
+    "createdAt": 1787256361292,
+    "panelMessageId": "1540089548523053097",
+    "closedAt": 1787486584162
+  },
+  {
+    "id": "2dad685c-1a8c-45cd-8b4e-2af80c8eef1a",
+    "guildId": "1293547276714905723",
+    "channelId": "1540279253243928646",
+    "ownerId": "1426172688476405784",
+    "createdById": "1426172688476405784",
+    "typeKey": "partner-request",
+    "typeLabel": "Partner Request",
+    "reason": "",
+    "details": {
+      "dcLink": "https://discord.gg/Amjrthghc",
+      "memberCount": "30"
+    },
+    "closed": true,
+    "createdAt": 1787301591193,
+    "panelMessageId": "1540279257853595709",
+    "closedAt": 1787312624551
+  },
+  {
+    "id": "b0852adc-eed2-4ea1-a4dd-c58be654ecb6",
+    "guildId": "1293547276714905723",
+    "channelId": "1540453245477195877",
+    "ownerId": "1482169151505170622",
+    "createdById": "1482169151505170622",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "",
+    "details": {
+      "giveawayHostRaw": "bäckertoast",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "10M",
+      "ign": "chimtix"
+    },
+    "closed": true,
+    "createdAt": 1787343074128,
+    "panelMessageId": "1540453248387776523",
+    "closedAt": 1787343105124
+  },
+  {
+    "id": "1c3f41e5-8265-49d3-88fc-e500333c2171",
+    "guildId": "1293547276714905723",
+    "channelId": "1540453562557927434",
+    "ownerId": "1482169151505170622",
+    "createdById": "1482169151505170622",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "",
+    "details": {
+      "giveawayHostRaw": "bäckertoast",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "10M",
+      "ign": "chimtix"
+    },
+    "closed": true,
+    "createdAt": 1787343149969,
+    "panelMessageId": "1540453567838814320",
+    "closedAt": 1787387142828
+  },
+  {
+    "id": "c60f3758-8739-4d0c-9a95-971c19bc122f",
+    "guildId": "1293547276714905723",
+    "channelId": "1540454326835748895",
+    "ownerId": "1513710132968685634",
+    "createdById": "1513710132968685634",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "",
+    "details": {
+      "giveawayHostRaw": "@bckertost",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "20m",
+      "ign": "vextionmc"
+    },
+    "closed": true,
+    "createdAt": 1787343331910,
+    "panelMessageId": "1540454330497376328",
+    "closedAt": 1787343392002
+  },
+  {
+    "id": "24205791-6f4f-4fff-b320-0a9c4cc85644",
+    "guildId": "1293547276714905723",
+    "channelId": "1540454749843890277",
+    "ownerId": "1513710132968685634",
+    "createdById": "1513710132968685634",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "",
+    "details": {
+      "giveawayHostRaw": "bckertost",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "10m",
+      "ign": "vextionmc"
+    },
+    "closed": true,
+    "createdAt": 1787343432807,
+    "panelMessageId": "1540454752800874520",
+    "closedAt": 1787385104369
+  },
+  {
+    "id": "ab522b36-a4b5-4e22-be16-c496965ae2b4",
+    "guildId": "1293547276714905723",
+    "channelId": "1540459689685422184",
+    "ownerId": "1327649526638706690",
+    "createdById": "1327649526638706690",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "",
+    "details": {
+      "giveawayHostRaw": "@Bckertost",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "10M",
+      "ign": "Philplayer25"
+    },
+    "closed": true,
+    "createdAt": 1787344610568,
+    "panelMessageId": "1540459693112295516",
+    "closedAt": 1787480617048
+  },
+  {
+    "id": "403b6269-f4cd-4143-a13a-e1ad425e7352",
+    "guildId": "1293547276714905723",
+    "channelId": "1540632037013069866",
+    "ownerId": "1492816164789686365",
+    "createdById": "1492816164789686365",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "",
+    "details": {
+      "giveawayHostRaw": "LULU",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "15m",
+      "ign": "Bckertost"
+    },
+    "closed": true,
+    "createdAt": 1787385701384,
+    "panelMessageId": "1540632040603521095",
+    "closedAt": 1787673375988
+  },
+  {
+    "id": "a9df5179-ea2d-43b0-b3a0-bf4a30f252ba",
+    "guildId": "1293547276714905723",
+    "channelId": "1540632318140620860",
+    "ownerId": "1426172688476405784",
+    "createdById": "1426172688476405784",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "event gw",
+    "details": {
+      "giveawayHostRaw": "lulu",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "15m",
+      "ign": "n1k8x"
+    },
+    "closed": true,
+    "createdAt": 1787385768516,
+    "panelMessageId": "1540632321781137425",
+    "closedAt": 1787475027242
+  },
+  {
+    "id": "0aa4e62a-02a8-4ca8-a650-b13ba5ae4e06",
+    "guildId": "1293547276714905723",
+    "channelId": "1540650251357003797",
+    "ownerId": "803252668445229117",
+    "createdById": "803252668445229117",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "",
+    "details": {
+      "giveawayHostRaw": "Becka",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "15m",
+      "ign": "Paulo308"
+    },
+    "closed": true,
+    "createdAt": 1787390044077,
+    "panelMessageId": "1540650254569836585",
+    "closedAt": 1787475052232
+  },
+  {
+    "id": "e0bfb131-1347-4a1a-b6e8-39166c0a99eb",
+    "guildId": "1293547276714905723",
+    "channelId": "1540756703556141176",
+    "ownerId": "1292715845939630100",
+    "createdById": "1292715845939630100",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "",
+    "details": {
+      "giveawayHostRaw": "Ccc",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "Ffg",
+      "ign": "FFG"
+    },
+    "closed": true,
+    "createdAt": 1787415424231,
+    "panelMessageId": "1540756707280421007",
+    "closedAt": 1787415433056
+  },
+  {
+    "id": "ade2d5a1-9c27-40fd-9416-8a5e690aea50",
+    "guildId": "1293547276714905723",
+    "channelId": "1540756893213921350",
+    "ownerId": "1292715845939630100",
+    "createdById": "1292715845939630100",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "",
+    "details": {
+      "giveawayHostRaw": "Red",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "Ddd",
+      "ign": "Ddd"
+    },
+    "closed": true,
+    "createdAt": 1787415469367,
+    "panelMessageId": "1540756896011784303",
+    "closedAt": 1787415475692
+  },
+  {
+    "id": "a127ebcd-d651-4665-b107-2c7e7d55dd2e",
+    "guildId": "1293547276714905723",
+    "channelId": "1541782786032144404",
+    "ownerId": "1405563078858506361",
+    "createdById": "1405563078858506361",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "",
+    "details": {
+      "giveawayHostRaw": "@bckertost.",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "10m",
+      "ign": "YourLocal_Pilot"
+    },
+    "closed": true,
+    "createdAt": 1787660061351,
+    "panelMessageId": "1541782794815148074",
+    "closedAt": 1787661675402
+  },
+  {
+    "id": "b68ac171-1c9e-44e3-bccc-f377d8473035",
+    "guildId": "1293547276714905723",
+    "channelId": "1541896592204898388",
+    "ownerId": "1513710132968685634",
+    "createdById": "1513710132968685634",
+    "typeKey": "claim-giveaway",
+    "typeLabel": "Claim Giveaway",
+    "reason": "",
+    "details": {
+      "giveawayHostRaw": "bckertost",
+      "giveawayHostId": null,
+      "giveawayHostMention": null,
+      "winAmount": "5m",
+      "ign": "vextionmc"
+    },
+    "closed": false,
+    "createdAt": 1787687194863,
+    "panelMessageId": "1541896597238186037"
+  }
+]

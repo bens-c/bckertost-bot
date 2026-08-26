@@ -1,0 +1,50 @@
+{
+  "giveaway": {
+    "blacklist": [
+      "925014769252048937",
+      "1405563078858506361"
+    ],
+    "requiredRoleId": "",
+    "bonusRoleId": "",
+    "bonusEntries": 0,
+    "scheduled": []
+  },
+  "economy": {
+    "shopItems": [
+      {
+        "id": "cookie",
+        "name": "Cookie",
+        "price": 250,
+        "description": "A sweet little treat."
+      },
+      {
+        "id": "vip-box",
+        "name": "VIP Box",
+        "price": 2500,
+        "description": "A shiny community reward box."
+      },
+      {
+        "id": "ticket-pass",
+        "name": "Ticket Pass",
+        "price": 1000,
+        "description": "A flex collectible for your inventory."
+      }
+    ]
+  },
+  "community": {
+    "starboardChannelId": "",
+    "starboardThreshold": 3,
+    "starboardEmoji": "?"
+  },
+  "applications": {
+    "cooldownDays": 7,
+    "rejectPresets": [
+      "Not enough detail in the application.",
+      "You are not a fit for the team right now.",
+      "Please get more community activity first."
+    ]
+  },
+  "tickets": {
+    "maxOpenPerUser": 3
+  }
+}
