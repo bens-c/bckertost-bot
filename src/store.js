@@ -72,7 +72,6 @@ function ensureDataDir() {
 }
 
 async function loadJson(fileName, fallback) {
-  if (!mongoUri) {
   if (!mongoUriEnv) {
     ensureDataDir();
     const filePath = path.join(dataDir, fileName);
