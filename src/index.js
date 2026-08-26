@@ -60,6 +60,8 @@ let afkStore;
 let economyStore;
 const snipeStore = new Map();
 let featureSettingsStore;
+let reactionRollsStore;
+let reactionRolesStore;
 let moderationCasesStore;
 let vouchesStore;
 let marriagesStore;
@@ -434,6 +436,27 @@ function persistGiveaways() {
 
 function persistTickets() {
   store.saveJson("tickets.json", ticketsStore).catch(() => null);
+}
+
+function persistReactionRolls() {
+  store.saveJson("reaction-rolls.json", reactionRollsStore).catch(() => null);
+}
+
+function persistReactionRoles() {
+  store.saveJson("reaction-roles.json", reactionRolesStore).catch(() => null);
+}
+
+async function handleStarboardReaction(reaction) {
+  // Minimal noop implementation to avoid startup crash.
+  // Extend this to implement starboard posting logic later.
+  try {
+    if (!reaction || !reaction.message) return;
+    // If starboard not configured, skip
+    if (!featureSettingsStore || !featureSettingsStore.community || !featureSettingsStore.community.starboardChannelId) return;
+    return;
+  } catch (err) {
+    return;
+  }
 }
 
 function persistApplications() {
@@ -3198,26 +3221,87 @@ function buildSelfRoleRows() {
 }
 
 async function sendSelfRolePanel(interaction) {
-  const rows = buildSelfRoleRows();
-  if (rows.length === 0) {
-    await interaction.reply({
-      content: "No self roles are configured in `config.json` yet.",
-      flags: MessageFlags.Ephemeral
+  // If there are reaction-role mappings configured for this guild, create a reaction panel
+  const guildMappings = (reactionRolesStore || []).filter((e) => e.guildId === interaction.guildId);
+
+  if (guildMappings.length === 0) {
+    // fallback to button-based self roles configured in config.json
+    const rows = buildSelfRoleRows();
+    if (rows.length === 0) {
+      await interaction.reply({
+        content: "No self roles are configured in `config.json` yet.",
+        flags: MessageFlags.Ephemeral
+      });
+      return;
+    }
+
+    await interaction.channel.send({
+      embeds: [
+        buildEmbed(
+          config.selfRoles?.panelTitle || "Self Roles",
+          config.selfRoles?.panelDescription || "Click the buttons below to toggle your roles."
+        )
+      ],
+      components: rows
     });
+
+    await interaction.reply({ content: "Self-role panel sent.", flags: MessageFlags.Ephemeral });
     return;
   }
 
-  await interaction.channel.send({
-    embeds: [
-      buildEmbed(
-        config.selfRoles?.panelTitle || "Self Roles",
-        config.selfRoles?.panelDescription || "Click the buttons below to toggle your roles."
-      )
-    ],
-    components: rows
-  });
+  // Build a unique list of emoji -> role mappings for this guild
+  const pairs = [];
+  const seen = new Set();
+  for (const m of guildMappings) {
+    const key = `${m.emoji}::${m.roleId}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    pairs.push({ emoji: m.emoji, roleId: m.roleId });
+  }
 
-  await interaction.reply({ content: "Self-role panel sent.", flags: MessageFlags.Ephemeral });
+  const lines = pairs.map((p) => `${p.emoji} — <@&${p.roleId}>`);
+
+  const panel = await interaction.channel.send({
+    embeds: [buildEmbed(config.selfRoles?.panelTitle || "Self Roles", (config.selfRoles?.panelDescription || "React to receive roles.") + "\n\n" + lines.join("\n"))]
+  }).catch(() => null);
+
+  if (!panel) {
+    await interaction.reply({ content: "Failed to send panel message.", flags: MessageFlags.Ephemeral });
+    return;
+  }
+
+  // Helper to normalize emoji for message.react
+  function emojiForReact(emoji) {
+    if (!emoji) return emoji;
+    if (emoji.includes("<") && emoji.includes(":") && emoji.includes(">")) return emoji;
+    if (emoji.includes(":")) {
+      // formats like name:id or name:123
+      const parts = emoji.split(":");
+      const name = parts[0];
+      const id = parts[1];
+      if (/^\d+$/.test(id)) return `<:${name}:${id}>`;
+    }
+    return emoji;
+  }
+
+  for (const p of pairs) {
+    const toReact = emojiForReact(p.emoji);
+    try {
+      // add reaction to panel message
+      // eslint-disable-next-line no-await-in-loop
+      await panel.react(toReact).catch(() => null);
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  // Create message-specific mappings so reaction events on this panel work
+  for (const p of pairs) {
+    reactionRolesStore.push({ guildId: interaction.guildId, channelId: interaction.channel.id, messageId: panel.id, emoji: p.emoji, roleId: p.roleId });
+  }
+  persistReactionRoles();
+
+  await interaction.reply({ content: "Self-role reaction panel sent.", flags: MessageFlags.Ephemeral });
 }
 
 async function configureStarboard(interaction) {
@@ -3292,6 +3376,50 @@ async function handleReactionRoleButton(interaction, roleId) {
   } else {
     await member.roles.add(roleId);
     await interaction.reply({ content: `Added ${role} to you.`, flags: MessageFlags.Ephemeral });
+  }
+}
+
+async function handleReactionRoleEvent(reaction, user, added) {
+  try {
+    const msg = reaction.message;
+    const guild = msg?.guild;
+    if (!guild || !msg || !reaction.emoji) return;
+
+    const mappings = (reactionRolesStore || []).filter((entry) => entry.guildId === guild.id && entry.messageId === msg.id);
+    if (!mappings.length) return;
+
+    const identifier = reaction.emoji.id ? `${reaction.emoji.name}:${reaction.emoji.id}` : reaction.emoji.name;
+
+    const matched = mappings.find((m) => {
+      if (!m || !m.emoji) return false;
+      if (m.emoji === identifier) return true;
+      if (m.emoji === reaction.emoji.name) return true;
+      if (reaction.emoji.id && (m.emoji === `<:${reaction.emoji.name}:${reaction.emoji.id}>` || m.emoji === `<a:${reaction.emoji.name}:${reaction.emoji.id}>`)) return true;
+      return false;
+    });
+
+    if (!matched) return;
+
+    const role = guild.roles.cache.get(matched.roleId);
+    if (!role || role.managed) return;
+
+    const member = await guild.members.fetch(user.id).catch(() => null);
+    if (!member) return;
+
+    // Ensure bot can manage the role
+    if (guild.members.me.roles.highest.position <= role.position) return;
+
+    if (added) {
+      if (!member.roles.cache.has(role.id)) {
+        await member.roles.add(role.id).catch(() => null);
+      }
+    } else {
+      if (member.roles.cache.has(role.id)) {
+        await member.roles.remove(role.id).catch(() => null);
+      }
+    }
+  } catch (error) {
+    // swallow errors silently
   }
 }
 
@@ -4041,9 +4169,211 @@ async function handleCommand(interaction) {
     return;
   }
 
+  if (interaction.commandName === "reaction-rolls-configure") {
+    const action = interaction.options.getString("action", true);
+    const key = interaction.options.getString("key");
+
+    if (action === "list") {
+      if (!reactionRollsStore || reactionRollsStore.length === 0) {
+        await interaction.reply({ content: "No reaction rolls configured.", flags: MessageFlags.Ephemeral });
+        return;
+      }
+
+      const lines = reactionRollsStore.map((cfg) => `**${cfg.key}** — <#${cfg.channelId}> / ${cfg.messageId} — winners: ${cfg.winners}`);
+      await interaction.reply({ content: lines.join("\n"), flags: MessageFlags.Ephemeral });
+      return;
+    }
+
+    if (action === "add") {
+      if (!key) {
+        await interaction.reply({ content: "You must provide a unique `key` for this roll.", flags: MessageFlags.Ephemeral });
+        return;
+      }
+
+      const channel = interaction.options.getChannel("channel");
+      const messageId = interaction.options.getString("message_id");
+      const winners = interaction.options.getInteger("winners") || 1;
+
+      if (!channel || !messageId) {
+        await interaction.reply({ content: "You must provide `channel` and `message_id`.", flags: MessageFlags.Ephemeral });
+        return;
+      }
+
+      if (!reactionRollsStore) reactionRollsStore = [];
+      if (reactionRollsStore.find((r) => r.key === key)) {
+        await interaction.reply({ content: "A reaction roll with this key already exists.", flags: MessageFlags.Ephemeral });
+        return;
+      }
+
+      reactionRollsStore.push({ key, channelId: channel.id, messageId, winners });
+      persistReactionRolls();
+      await interaction.reply({ content: `Added reaction roll **${key}**.`, flags: MessageFlags.Ephemeral });
+      return;
+    }
+
+    if (action === "remove") {
+      if (!key) {
+        await interaction.reply({ content: "You must provide the `key` to remove.", flags: MessageFlags.Ephemeral });
+        return;
+      }
+
+      const idx = reactionRollsStore.findIndex((r) => r.key === key);
+      if (idx === -1) {
+        await interaction.reply({ content: "No reaction roll found with that key.", flags: MessageFlags.Ephemeral });
+        return;
+      }
+
+      reactionRollsStore.splice(idx, 1);
+      persistReactionRolls();
+      await interaction.reply({ content: `Removed reaction roll **${key}**.`, flags: MessageFlags.Ephemeral });
+      return;
+    }
+  }
+
+  if (interaction.commandName === "self-rolls") {
+    const action = interaction.options.getString("action", true);
+
+    if (action === "list") {
+      const list = (reactionRolesStore || []).filter((r) => r.guildId === interaction.guildId);
+      if (list.length === 0) {
+        await interaction.reply({ content: "No reaction roles configured for this server.", flags: MessageFlags.Ephemeral });
+        return;
+      }
+
+      const lines = list.map((entry) => `<#${entry.channelId}> / ${entry.messageId} — ${entry.emoji} => <@&${entry.roleId}>`);
+      await interaction.reply({ content: lines.join("\n"), flags: MessageFlags.Ephemeral });
+      return;
+    }
+
+    if (action === "add") {
+      const channel = interaction.options.getChannel("channel");
+      const messageId = interaction.options.getString("message_id");
+      const emoji = interaction.options.getString("emoji");
+      const role = interaction.options.getRole("role");
+
+      if (!channel || !messageId || !emoji || !role) {
+        await interaction.reply({ content: "You must provide `channel`, `message_id`, `emoji` and `role`.", flags: MessageFlags.Ephemeral });
+        return;
+      }
+
+      if (!reactionRolesStore) reactionRolesStore = [];
+      reactionRolesStore.push({ guildId: interaction.guildId, channelId: channel.id, messageId, emoji, roleId: role.id });
+      persistReactionRoles();
+      await interaction.reply({ content: `Added reaction role: ${emoji} → ${role}.`, flags: MessageFlags.Ephemeral });
+      return;
+    }
+
+    if (action === "remove") {
+      const channel = interaction.options.getChannel("channel");
+      const messageId = interaction.options.getString("message_id");
+      const emoji = interaction.options.getString("emoji");
+
+      if (!channel || !messageId || !emoji) {
+        await interaction.reply({ content: "You must provide `channel`, `message_id` and `emoji` to remove.", flags: MessageFlags.Ephemeral });
+        return;
+      }
+
+      const idx = (reactionRolesStore || []).findIndex((e) => e.guildId === interaction.guildId && e.channelId === channel.id && e.messageId === messageId && e.emoji === emoji);
+      if (idx === -1) {
+        await interaction.reply({ content: "No matching reaction role found.", flags: MessageFlags.Ephemeral });
+        return;
+      }
+
+      reactionRolesStore.splice(idx, 1);
+      persistReactionRoles();
+      await interaction.reply({ content: "Reaction role removed.", flags: MessageFlags.Ephemeral });
+      return;
+    }
+  }
+
+  if (interaction.commandName === "matenence") {
+    const ownerId = process.env.OWNER_ID || flaggedUserId;
+    if (interaction.user.id !== ownerId) {
+      await interaction.reply({ content: "Only the bot owner can use this command.", flags: MessageFlags.Ephemeral });
+      return;
+    }
+
+    const action = interaction.options.getString("action", true);
+    const message = interaction.options.getString("message") || "Maintenance";
+
+    try {
+      if (action === "on") {
+        await client.user.setPresence({ activities: [{ name: message }], status: "dnd" });
+        await interaction.reply({ content: `Maintenance mode enabled: ${message}`, flags: MessageFlags.Ephemeral });
+        return;
+      }
+
+      if (action === "off") {
+        await client.user.setPresence({ activities: [], status: "online" });
+        await interaction.reply({ content: "Maintenance mode disabled.", flags: MessageFlags.Ephemeral });
+        return;
+      }
+    } catch (err) {
+      await interaction.reply({ content: "Failed to update presence.", flags: MessageFlags.Ephemeral });
+      return;
+    }
+  }
+
   if (interaction.commandName === "coinflip") {
     const result = Math.random() < 0.5 ? "Heads" : "Tails";
     await interaction.reply(`The coin landed on: **${result}**`);
+    return;
+  }
+
+  if (interaction.commandName === "reaction-rolls-draw") {
+    const key = interaction.options.getString("key");
+    const channelOpt = interaction.options.getChannel("channel");
+    const messageIdOpt = interaction.options.getString("message_id");
+    const winnersOpt = interaction.options.getInteger("winners");
+
+    let cfg = null;
+    if (key) cfg = (reactionRollsStore || []).find((r) => r.key === key) || null;
+    if (!cfg) {
+      if (!channelOpt || !messageIdOpt) {
+        await interaction.reply({ content: "Provide either a configured `key` or both `channel` and `message_id`.", flags: MessageFlags.Ephemeral });
+        return;
+      }
+      cfg = { channelId: channelOpt.id, messageId: messageIdOpt, winners: winnersOpt || 1 };
+    }
+
+    const channel = await client.channels.fetch(cfg.channelId).catch(() => null);
+    if (!channel || !channel.isTextBased()) {
+      await interaction.reply({ content: "Could not fetch the configured channel.", flags: MessageFlags.Ephemeral });
+      return;
+    }
+
+    const message = await channel.messages.fetch(cfg.messageId).catch(() => null);
+    if (!message) {
+      await interaction.reply({ content: "Could not fetch the configured message.", flags: MessageFlags.Ephemeral });
+      return;
+    }
+
+    // collect unique user IDs who reacted (exclude bots)
+    const usersSet = new Set();
+    for (const reaction of message.reactions.cache.values()) {
+      const users = await reaction.users.fetch();
+      for (const user of users.values()) {
+        if (user.bot) continue;
+        usersSet.add(user.id);
+      }
+    }
+
+    const participantIds = [...usersSet];
+    if (participantIds.length === 0) {
+      await interaction.reply({ content: "No participants found for this message.", flags: MessageFlags.Ephemeral });
+      return;
+    }
+
+    const winnersCount = winnersOpt || cfg.winners || 1;
+    const winners = [];
+    while (winners.length < Math.min(winnersCount, participantIds.length)) {
+      const idx = Math.floor(Math.random() * participantIds.length);
+      const id = participantIds.splice(idx, 1)[0];
+      winners.push(id);
+    }
+
+    const mentions = winners.map((id) => `<@${id}>`).join(", ");
+    await interaction.reply({ content: `Winners: ${mentions}` });
     return;
   }
 
@@ -5528,6 +5858,7 @@ client.on(Events.MessageReactionAdd, async (reaction) => {
     return;
   }
   await handleStarboardReaction(safeReaction).catch(() => null);
+  // noop: handled below once we also receive the reacting user via the event
 });
 
 client.on(Events.MessageReactionRemove, async (reaction) => {
@@ -5536,6 +5867,20 @@ client.on(Events.MessageReactionRemove, async (reaction) => {
     return;
   }
   await handleStarboardReaction(safeReaction).catch(() => null);
+  // noop: handled below once we also receive the reacting user via the event
+});
+
+// Use the full event signature (reaction, user) to know which member reacted
+client.on(Events.MessageReactionAdd, async (reaction, user) => {
+  const safeReaction = reaction.partial ? await reaction.fetch().catch(() => null) : reaction;
+  if (!safeReaction || !user) return;
+  await handleReactionRoleEvent(safeReaction, user, true).catch(() => null);
+});
+
+client.on(Events.MessageReactionRemove, async (reaction, user) => {
+  const safeReaction = reaction.partial ? await reaction.fetch().catch(() => null) : reaction;
+  if (!safeReaction || !user) return;
+  await handleReactionRoleEvent(safeReaction, user, false).catch(() => null);
 });
 
 client.on(Events.MessageCreate, async (message) => {
@@ -5676,6 +6021,8 @@ client.on(Events.MessageCreate, async (message) => {
     marriagesStore = await store.loadJson("marriages.json", []);
     levelStore = await store.loadJson("levels.json", {});
     starboardStore = await store.loadJson("starboard.json", []);
+    reactionRollsStore = await store.loadJson("reaction-rolls.json", []);
+    reactionRolesStore = await store.loadJson("reaction-roles.json", []);
 
     await client.login(token);
   } catch (error) {

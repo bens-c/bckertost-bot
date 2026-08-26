@@ -677,6 +677,93 @@ function buildCommands() {
       .setName("health")
       .setDescription("Shows bot health information."),
     new SlashCommandBuilder()
+      .setName("reaction-rolls-configure")
+      .setDescription("Configure reaction rolls for quick draws.")
+      .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
+      .addStringOption((option) =>
+        option
+          .setName("action")
+          .setDescription("Action to perform.")
+          .setRequired(true)
+          .addChoices(
+            { name: "Add", value: "add" },
+            { name: "Remove", value: "remove" },
+            { name: "List", value: "list" }
+          )
+      )
+      .addStringOption((option) =>
+        option.setName("key").setDescription("Unique key for this roll (required for add/remove)")
+      )
+      .addChannelOption((option) =>
+        option.setName("channel").setDescription("Channel containing the message for the roll")
+      )
+      .addStringOption((option) =>
+        option.setName("message_id").setDescription("Message ID to use for the roll")
+      )
+      .addIntegerOption((option) =>
+        option.setName("winners").setDescription("Number of winners to draw").setMinValue(1)
+      ),
+    new SlashCommandBuilder()
+      .setName("reaction-rolls-draw")
+      .setDescription("Draw winners for a configured reaction roll or a specific message.")
+      .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
+      .addStringOption((option) =>
+        option.setName("key").setDescription("Configured key to draw (optional)")
+      )
+      .addChannelOption((option) =>
+        option.setName("channel").setDescription("Channel containing the message to draw from")
+      )
+      .addStringOption((option) =>
+        option.setName("message_id").setDescription("Message ID to draw from (optional if using key)")
+      )
+      .addIntegerOption((option) =>
+        option.setName("winners").setDescription("Number of winners to pick (overrides configured)")
+      ),
+    new SlashCommandBuilder()
+      .setName("self-rolls")
+      .setDescription("Configure reaction role mappings (assign/remove role on emoji)")
+      .addStringOption((option) =>
+        option
+          .setName("action")
+          .setDescription("Action to perform")
+          .setRequired(true)
+          .addChoices(
+            { name: "Add", value: "add" },
+            { name: "Remove", value: "remove" },
+            { name: "List", value: "list" }
+          )
+      )
+      .addChannelOption((option) =>
+        option.setName("channel").setDescription("Channel containing the message for the mapping")
+      )
+      .addStringOption((option) =>
+        option.setName("message_id").setDescription("Message ID to attach the reaction-role to")
+      )
+      .addStringOption((option) =>
+        option.setName("emoji").setDescription("Emoji to listen for (unicode or <:name:id> format)")
+      )
+      .addRoleOption((option) =>
+        option.setName("role").setDescription("Role to assign/remove when emoji is reacted")
+      ),
+    new SlashCommandBuilder()
+      .setName("matenence")
+      .setDescription("Toggle bot maintenance mode (owner only)")
+      .addStringOption((option) =>
+        option
+          .setName("action")
+          .setDescription("on to enable, off to disable")
+          .setRequired(true)
+          .addChoices(
+            { name: "On", value: "on" },
+            { name: "Off", value: "off" }
+          )
+      )
+      .addStringOption((option) =>
+        option
+          .setName("message")
+          .setDescription("Optional maintenance status message")
+      ),
+    new SlashCommandBuilder()
       .setName("giveaway-blacklist")
       .setDescription("Manages the giveaway blacklist.")
       .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)

@@ -112,3 +112,28 @@ node scripts/migrate-to-mongo.js
 The script will connect to `MONGO_URI`, create collections named after each JSON file (for example `giveaways.json` → collection `giveaways`) and upsert a single document with `_id: "data"` containing the file contents.
 
 If you prefer to keep local JSON storage, do not set `MONGO_URI`.
+
+## Reaction Roles
+
+You can configure reaction-role mappings so users receive a role when they react with a specific emoji on a message.
+
+- Storage file: `reaction-roles.json` (created automatically when you add mappings)
+- Example entry:
+
+```
+[
+   {
+      "guildId": "123456789012345678",
+      "channelId": "234567890123456789",
+      "messageId": "345678901234567890",
+      "emoji": "👍",
+      "roleId": "456789012345678901"
+   }
+]
+```
+
+Use the slash command `/self-rolls` with `action=Add|Remove|List` to manage mappings in-server.
+
+Notes:
+- For custom emojis, provide either `name:id` or `<:name:id>` as the `emoji` value.
+- The bot needs `Manage Roles` and its role must be higher than the target role.
