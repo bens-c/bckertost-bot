@@ -9,10 +9,10 @@ const defaults = {
   embedColor: "#f59e0b",
   tickets: {
     enabled: true,
-    categoryId: "",
-    supportRoleId: "",
-    devRoleIds: [],
-    transcriptChannelId: "",
+    categoryId: "1530230138225168487",
+    supportRoleId: "1531395509628178583",
+    devRoleIds: ["1516466724160147607"],
+    transcriptChannelId: "1532353532655570974",
     panelTitle: "Support Tickets",
     panelDescription: "Click the button below to open a ticket.",
     channelNamePrefix: "ticket",
@@ -41,8 +41,8 @@ const defaults = {
   },
   applications: {
     enabled: true,
-    reviewChannelId: "",
-    staffRoleId: "",
+    reviewChannelId: "1523069494044524736",
+    staffRoleId: "1516473442042380398",
     panelTitle: "Staff Application",
     panelDescription: "Start your application here via DM.",
     questions: [],
@@ -60,18 +60,29 @@ const defaults = {
   selfRoles: {
     panelTitle: "Self Roles",
     panelDescription: "Click the buttons below to toggle your roles.",
-    roles: []
+		"roles": [
+			{
+				"key": "supporter",
+				"label": "Supporter",
+				"roleId": "1528175395587756123"
+			},
+			{
+				"key": "mod",
+				"label": "Mod",
+				"roleId": "1528176134515196115"
+			}
+		],
   },
   modLogs: {
-    channelId: ""
+    channelId: "1515807384294002719"
   },
   serverStats: {
-    enabled: false,
+    enabled: true,
     categoryId: "",
     channelIds: {
-      members: "",
-      bots: "",
-      boosts: ""
+      "members": "1542189768920801453",
+			"bots": "1542189770233352202",
+			"boosts": "1542189772498403369"
     }
   },
   games: {

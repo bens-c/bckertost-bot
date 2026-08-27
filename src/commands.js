@@ -900,6 +900,27 @@ function buildCommands() {
           .setRequired(true)
       ),
     new SlashCommandBuilder()
+      .setName("gping")
+      .setDescription("Sends a sponsor ping message for a giveaway type.")
+      .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
+      .addStringOption((option) =>
+        option
+          .setName("type")
+          .setDescription("The giveaway type to ping for.")
+          .setRequired(true)
+          .addChoices(
+            { name: "Quickdrop", value: "qd" },
+            { name: "Extra Giveaway", value: "extra" },
+            { name: "Daily Giveaway", value: "daily" },
+            { name: "Weekly Giveaway", value: "weekly" }
+          )
+      )
+      .addRoleOption((option) =>
+        option
+          .setName("sponsor")
+          .setDescription("Optional sponsor role to mention instead of the default one.")
+      ),
+    new SlashCommandBuilder()
       .setName("gpingqd")
       .setDescription("Sends the Quickdrop sponsor ping message.")
       .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),

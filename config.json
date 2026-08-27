@@ -3,12 +3,10 @@
 	"embedColor": "#f59e0b",
 	"tickets": {
 		"enabled": true,
-		"categoryId": "PASTE_CATEGORY_ID",
-		"supportRoleId": "PASTE_SUPPORT_ROLE_ID",
-		"devRoleIds": [
-			"PASTE_DEV_ROLE_ID"
-		],
-		"transcriptChannelId": "PASTE_LOG_CHANNEL_ID",
+		"categoryId": "1530230138225168487",
+		"supportRoleId": "1531395509628178583",
+		"devRoleIds": ["1516466724160147607"],
+		"transcriptChannelId": "1532353532655570974",
 		"panelTitle": "Support Tickets",
 		"panelDescription": "Click the button below to open a ticket.",
 		"channelNamePrefix": "ticket",
@@ -37,20 +35,20 @@
 	},
 	"applications": {
 		"enabled": true,
-		"reviewChannelId": "PASTE_APPLICATION_REVIEW_CHANNEL_ID",
-		"staffRoleId": "PASTE_STAFF_ROLE_ID",
+		"reviewChannelId": "1523069494044524736",
+		"staffRoleId": "1516473442042380398",
 		"panelTitle": "Staff Application",
 		"panelDescription": "Start your application here via DM.",
 		"roles": [
 			{
 				"key": "supporter",
 				"label": "Supporter",
-				"roleId": "PASTE_SUPPORTER_ROLE_ID"
+				"roleId": "1528175395587756123"
 			},
 			{
 				"key": "mod",
 				"label": "Mod",
-				"roleId": "PASTE_MOD_ROLE_ID"
+				"roleId": "1528176134515196115"
 			}
 		],
 		"questions": [
@@ -64,15 +62,15 @@
 		"enabled": true
 	},
 	"modLogs": {
-		"channelId": "PASTE_MOD_LOG_CHANNEL_ID"
+		"channelId": "1515807384294002719"
 	},
 	"serverStats": {
-		"enabled": false,
-		"categoryId": "PASTE_STATS_CATEGORY_ID",
+		"enabled": true,
+		"categoryId": "1515807384294002719",
 		"channelIds": {
-			"members": "",
-			"bots": "",
-			"boosts": ""
+			"members": "1542189768920801453",
+			"bots": "1542189770233352202",
+			"boosts": "1542189772498403369"
 		}
 	},
 	"games": {

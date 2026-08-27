@@ -198,9 +198,10 @@ function buildGiveawayEmbed(giveaway) {
   );
 }
 
-function buildSponsorPingMessage(type) {
+function buildSponsorPingMessage(type, overrideRoleId = null) {
   const channelMention = `<#${giveawayTicketChannelId}>`;
   const entry = getSponsorPingLayout(type);
+  const roleId = overrideRoleId || entry.roleId;
   return [
     "━━━━━━━━━━━━━━━━━━━━━━━",
     `🎉 **${entry.title}**`,
@@ -211,7 +212,7 @@ function buildSponsorPingMessage(type) {
     "",
     "👑 Sponsored by:",
     "",
-    entry.roleId ? `<@&${entry.roleId}>` : "No sponsor role configured."
+    roleId ? `<@&${roleId}>` : "No sponsor role configured."
   ].join("\n");
 }
 
@@ -239,11 +240,12 @@ function getSponsorPingLayout(type) {
   return layouts[type];
 }
 
-async function replySponsorPing(interaction, type) {
+async function replySponsorPing(interaction, type, overrideRoleId = null) {
   const entry = getSponsorPingLayout(type);
+  const roleId = overrideRoleId || entry?.roleId || null;
   await interaction.reply({
-    content: buildSponsorPingMessage(type),
-    allowedMentions: entry?.roleId ? { roles: [entry.roleId] } : { parse: [] }
+    content: buildSponsorPingMessage(type, roleId),
+    allowedMentions: roleId ? { roles: [roleId] } : { parse: [] }
   });
 }
 
@@ -4914,6 +4916,13 @@ Answer: **${answerEightBall()}**`)]
   if (interaction.commandName === "giveaway-reroll") {
     const messageId = interaction.options.getString("message_id", true);
     await rerollGiveawayByMessageId(interaction, messageId);
+    return;
+  }
+
+  if (interaction.commandName === "gping") {
+    const type = interaction.options.getString("type", true);
+    const sponsorRole = interaction.options.getRole("sponsor");
+    await replySponsorPing(interaction, type, sponsorRole ? sponsorRole.id : null);
     return;
   }
 
