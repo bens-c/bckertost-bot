@@ -52,13 +52,7 @@ const defaults = {
     roles: []
   },
   giveaways: {
-    enabled: true,
-    sponsorPings: {
-      qdRoleId: "",
-      extraRoleId: "",
-      dailyRoleId: "",
-      weeklyRoleId: ""
-    }
+    enabled: true
   },
   selfRoles: {
     panelTitle: "Self Roles",

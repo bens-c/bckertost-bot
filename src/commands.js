@@ -918,12 +918,19 @@ function buildCommands() {
       .addRoleOption((option) =>
         option
           .setName("sponsor")
-          .setDescription("Optional sponsor role to mention instead of the default one.")
+          .setDescription("The role to mention in the giveaway ping.")
+          .setRequired(true)
       ),
     new SlashCommandBuilder()
       .setName("gpingqd")
       .setDescription("Sends the Quickdrop sponsor ping message.")
-      .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
+      .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
+      .addRoleOption((option) =>
+        option
+          .setName("role")
+          .setDescription("The role to mention in the Quickdrop ping.")
+          .setRequired(true)
+      ),
     new SlashCommandBuilder()
       .setName("gping-extra")
       .setDescription("Sends the extra giveaway sponsor ping message.")

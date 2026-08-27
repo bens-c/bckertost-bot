@@ -4941,13 +4941,14 @@ Answer: **${answerEightBall()}**`)]
 
   if (interaction.commandName === "gping") {
     const type = interaction.options.getString("type", true);
-    const sponsorRole = interaction.options.getRole("sponsor");
-    await replySponsorPing(interaction, type, sponsorRole ? sponsorRole.id : null);
+    const sponsorRole = interaction.options.getRole("sponsor", true);
+    await replySponsorPing(interaction, type, sponsorRole.id);
     return;
   }
 
   if (interaction.commandName === "gpingqd") {
-    await replySponsorPing(interaction, "qd");
+    const role = interaction.options.getRole("role", true);
+    await replySponsorPing(interaction, "qd", role.id);
     return;
   }
 
