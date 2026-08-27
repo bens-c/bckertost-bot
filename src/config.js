@@ -3,6 +3,7 @@ const path = require("path");
 
 const rootDir = path.join(__dirname, "..");
 const configPath = path.join(rootDir, "config.json");
+const guildConfigCache = new WeakMap();
 
 const defaults = {
   botName: "Discord Bot",
@@ -130,7 +131,31 @@ function loadConfig() {
   return mergeConfig(defaults, parsed);
 }
 
+function getGuildConfig(config, guildId) {
+  if (!guildId || !config.guilds || typeof config.guilds !== "object") {
+    return config;
+  }
+
+  let cachedConfigs = guildConfigCache.get(config);
+  if (!cachedConfigs) {
+    cachedConfigs = new Map();
+    guildConfigCache.set(config, cachedConfigs);
+  }
+
+  if (cachedConfigs.has(guildId)) {
+    return cachedConfigs.get(guildId);
+  }
+
+  const baseConfig = { ...config };
+  delete baseConfig.guilds;
+
+  const resolvedConfig = mergeConfig(baseConfig, config.guilds[guildId]);
+  cachedConfigs.set(guildId, resolvedConfig);
+  return resolvedConfig;
+}
+
 module.exports = {
   configPath,
+  getGuildConfig,
   loadConfig
 };

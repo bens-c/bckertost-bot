@@ -76,6 +76,52 @@
 	},
 	"games": {
 		"enabled": true
+	},
+	"guilds": {
+		"1293547276714905723": {
+			"tickets": {
+				"categoryId": "1530230138225168487",
+				"supportRoleId": "1531395509628178583",
+				"transcriptChannelId": "1532353532655570974"
+			},
+			"applications": {
+				"reviewChannelId": "1523069494044524736",
+				"staffRoleId": "1516473442042380398"
+			},
+			"modLogs": {
+				"channelId": "1515807384294002719"
+			},
+			"serverStats": {
+				"categoryId": "1515807384294002719",
+				"channelIds": {
+					"members": "1542189768920801453",
+					"bots": "1542189770233352202",
+					"boosts": "1542189772498403369"
+				}
+			}
+		},
+		"1542525895284367422": {
+			"tickets": {
+				"categoryId": "1542525897985228913",
+				"supportRoleId": "1542525895284367424",
+				"transcriptChannelId": "1542525897343762460"
+			},
+			"applications": {
+				"reviewChannelId": "1542525897343762460",
+				"staffRoleId": "1542525895284367427"
+			},
+			"modLogs": {
+				"channelId": "1542525897343762460"
+			},
+			"serverStats": {
+				"categoryId": "1542525896374882387",
+				"channelIds": {
+					"members": "1542525896374882388",
+					"bots": "1542525896374882389",
+					"boosts": "1542525896374882390"
+				}
+			}
+		}
 	}
 }
 

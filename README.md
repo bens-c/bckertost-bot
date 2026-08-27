@@ -30,11 +30,30 @@ A configurable Discord bot with tickets, giveaways, DM applications, and small m
 
    - `DISCORD_TOKEN`
    - `CLIENT_ID`
-   - `GUILD_ID` for faster testing on your server
+   - `GUILD_ID` for faster testing on one or more servers (comma-separated)
 
 4. Copy `config.example.json` to `config.json`
 
-5. Fill in your channel, role, and category IDs in `config.json`
+5. Fill in your channel, role, and category IDs in `config.json`. For different settings per server, add a `guilds` section keyed by each Guild ID. Every section can be overridden there, for example:
+
+    ```json
+    "guilds": {
+       "FIRST_GUILD_ID": {
+          "tickets": {
+             "categoryId": "FIRST_TICKET_CATEGORY_ID",
+             "supportRoleId": "FIRST_SUPPORT_ROLE_ID"
+          }
+       },
+       "SECOND_GUILD_ID": {
+          "tickets": {
+             "categoryId": "SECOND_TICKET_CATEGORY_ID",
+             "supportRoleId": "SECOND_SUPPORT_ROLE_ID"
+          }
+       }
+    }
+    ```
+
+    Values not listed under a Guild use the shared values above `guilds`.
 
 ## Discord Developer Portal
 

@@ -1,5 +1,6 @@
 require("dotenv").config();
 const fs = require("fs");
+const { AsyncLocalStorage } = require("async_hooks");
 
 const {
   ActionRowBuilder,
@@ -27,12 +28,15 @@ const crypto = require("crypto");
 const path = require("path");
 
 const { buildCommands } = require("./commands");
-const { configPath, loadConfig } = require("./config");
+const { getGuildConfig, loadConfig } = require("./config");
 const store = require("./store");
 
 const token = process.env.DISCORD_TOKEN;
 const clientId = process.env.CLIENT_ID;
-const guildId = process.env.GUILD_ID;
+const guildIds = (process.env.GUILD_ID || "")
+  .split(",")
+  .map((id) => id.trim())
+  .filter(Boolean);
 const flaggedUserId = "1402323305788080239";
 const investmentManagerId = "925014769252048937";
 const giveawayTicketChannelId = "1525579929784422630";
@@ -45,9 +49,20 @@ if (!token || !clientId) {
 }
 
 let config;
+let loadedConfig;
+const configContext = new AsyncLocalStorage();
 
 try {
-  config = loadConfig();
+  loadedConfig = loadConfig();
+  config = new Proxy(loadedConfig, {
+    get(target, property) {
+      return getGuildConfig(target, configContext.getStore())[property];
+    },
+    set(target, property, value) {
+      getGuildConfig(target, configContext.getStore())[property] = value;
+      return true;
+    }
+  });
 } catch (error) {
   console.error(error.message);
   process.exit(1);
@@ -397,12 +412,14 @@ async function registerCommands() {
   const rest = new REST({ version: "10" }).setToken(token);
   const commands = buildCommands();
 
-  if (guildId) {
+  if (guildIds.length > 0) {
     try {
-      await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
-        body: commands
-      });
-      console.log(`Registered guild commands for guild ${guildId}`);
+      for (const guildId of guildIds) {
+        await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
+          body: commands
+        });
+        console.log(`Registered guild commands for guild ${guildId}`);
+      }
       await rest.put(Routes.applicationCommands(clientId), {
         body: []
       });
@@ -412,7 +429,7 @@ async function registerCommands() {
       if (error.code === 50001) {
         console.error(
           [
-            `Missing access while registering guild commands for GUILD_ID ${guildId}.`,
+            `Missing access while registering guild commands for GUILD_ID ${guildIds.join(", ")}.`,
             "Check that:",
             "- the bot is invited to that server",
             "- the GUILD_ID is the correct server ID",
@@ -1248,9 +1265,11 @@ function queueServerStatsUpdate(guild) {
   }
 
   serverStatsUpdateTimers.set(guild.id, setTimeout(async () => {
-    serverStatsUpdateTimers.delete(guild.id);
-    await updateServerStats(guild).catch((error) => {
-      console.error("Failed to update server stats:", error);
+    await configContext.run(guild.id, async () => {
+      serverStatsUpdateTimers.delete(guild.id);
+      await updateServerStats(guild).catch((error) => {
+        console.error("Failed to update server stats:", error);
+      });
     });
   }, 5000));
 }
@@ -5820,34 +5839,36 @@ client.once(Events.ClientReady, async (readyClient) => {
 });
 
 client.on(Events.InteractionCreate, async (interaction) => {
-  try {
-    if (interaction.isChatInputCommand()) {
-      await handleCommand(interaction);
-      return;
-    }
+  return configContext.run(interaction.guildId, async () => {
+    try {
+      if (interaction.isChatInputCommand()) {
+        await handleCommand(interaction);
+        return;
+      }
 
-    if (interaction.isButton()) {
-      await handleButton(interaction);
-      return;
-    }
+      if (interaction.isButton()) {
+        await handleButton(interaction);
+        return;
+      }
 
-    if (interaction.isStringSelectMenu()) {
-      await handleStringSelect(interaction);
-      return;
-    }
+      if (interaction.isStringSelectMenu()) {
+        await handleStringSelect(interaction);
+        return;
+      }
 
-    if (interaction.isModalSubmit()) {
-      await handleModal(interaction);
-    }
-  } catch (error) {
-    console.error("Interaction error:", error);
+      if (interaction.isModalSubmit()) {
+        await handleModal(interaction);
+      }
+    } catch (error) {
+      console.error("Interaction error:", error);
 
-    const method = interaction.deferred || interaction.replied ? "followUp" : "reply";
-    await interaction[method]({
-      content: "Something went wrong.",
-      flags: MessageFlags.Ephemeral
-    }).catch(() => null);
-  }
+      const method = interaction.deferred || interaction.replied ? "followUp" : "reply";
+      await interaction[method]({
+        content: "Something went wrong.",
+        flags: MessageFlags.Ephemeral
+      }).catch(() => null);
+    }
+  });
 });
 
 client.on(Events.MessageDelete, async (message) => {
@@ -5871,7 +5892,7 @@ client.on(Events.MessageReactionAdd, async (reaction) => {
   if (!safeReaction) {
     return;
   }
-  await handleStarboardReaction(safeReaction).catch(() => null);
+  await configContext.run(safeReaction.message?.guild?.id, () => handleStarboardReaction(safeReaction)).catch(() => null);
   // noop: handled below once we also receive the reacting user via the event
 });
 
@@ -5880,7 +5901,7 @@ client.on(Events.MessageReactionRemove, async (reaction) => {
   if (!safeReaction) {
     return;
   }
-  await handleStarboardReaction(safeReaction).catch(() => null);
+  await configContext.run(safeReaction.message?.guild?.id, () => handleStarboardReaction(safeReaction)).catch(() => null);
   // noop: handled below once we also receive the reacting user via the event
 });
 
@@ -5888,16 +5909,17 @@ client.on(Events.MessageReactionRemove, async (reaction) => {
 client.on(Events.MessageReactionAdd, async (reaction, user) => {
   const safeReaction = reaction.partial ? await reaction.fetch().catch(() => null) : reaction;
   if (!safeReaction || !user) return;
-  await handleReactionRoleEvent(safeReaction, user, true).catch(() => null);
+  await configContext.run(safeReaction.message?.guild?.id, () => handleReactionRoleEvent(safeReaction, user, true)).catch(() => null);
 });
 
 client.on(Events.MessageReactionRemove, async (reaction, user) => {
   const safeReaction = reaction.partial ? await reaction.fetch().catch(() => null) : reaction;
   if (!safeReaction || !user) return;
-  await handleReactionRoleEvent(safeReaction, user, false).catch(() => null);
+  await configContext.run(safeReaction.message?.guild?.id, () => handleReactionRoleEvent(safeReaction, user, false)).catch(() => null);
 });
 
 client.on(Events.MessageCreate, async (message) => {
+  return configContext.run(message.guild?.id, async () => {
   if (message.author.bot) {
     return;
   }
@@ -5991,6 +6013,7 @@ client.on(Events.MessageCreate, async (message) => {
   if (message.channel.type === ChannelType.DM) {
     await handleApplicationAnswer(message);
   }
+  });
 });
 
 ;(async () => {
