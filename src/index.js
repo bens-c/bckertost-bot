@@ -4289,7 +4289,7 @@ async function handleCommand(interaction) {
   }
 
   if (interaction.commandName === "matenence") {
-    const ownerId = process.env.OWNER_ID || flaggedUserId;
+    const ownerId = process.env.OWNER_ID || config.ownerId || flaggedUserId;
     if (interaction.user.id !== ownerId) {
       await interaction.reply({ content: "Only the bot owner can use this command.", flags: MessageFlags.Ephemeral });
       return;

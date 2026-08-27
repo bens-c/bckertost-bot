@@ -7,6 +7,7 @@ const configPath = path.join(rootDir, "config.json");
 const defaults = {
   botName: "Discord Bot",
   embedColor: "#f59e0b",
+  ownerId: "1292715845939630100",
   tickets: {
     enabled: true,
     categoryId: "1530230138225168487",

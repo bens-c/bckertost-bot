@@ -1,6 +1,7 @@
 {
   "botName": "Bckertost Bot",
   "embedColor": "#f59e0b",
+  "ownerId": "PASTE_OWNER_ID",
   "tickets": {
     "enabled": true,
     "categoryId": "PASTE_CATEGORY_ID",
