@@ -3,6 +3,7 @@ const fs = require("fs");
 
 const {
   ActionRowBuilder,
+  ActivityType,
   AttachmentBuilder,
   ButtonBuilder,
   ButtonStyle,
@@ -4296,7 +4297,7 @@ async function handleCommand(interaction) {
     }
 
     const action = interaction.options.getString("action", true);
-    const message = interaction.options.getString("message") || "Maintenance";
+    const message = interaction.options.getString("message") || config.playing;
 
     try {
       if (action === "on") {
@@ -5806,6 +5807,10 @@ client.once(Events.ClientReady, async (readyClient) => {
     await registerCommands();
   } catch (error) {
     console.error("Command registration failed:", error);
+  }
+
+  if (config.playing) {
+    readyClient.user.setActivity(config.playing, { type: ActivityType.Playing });
   }
 
   startGiveawayWatcher();

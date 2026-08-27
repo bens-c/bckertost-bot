@@ -1,6 +1,7 @@
 {
 	"botName": "Bckertost Bot",
 	"embedColor": "#f59e0b",
+	"playing": "Donutsmp.net",
 	"tickets": {
 		"enabled": true,
 		"categoryId": "1530230138225168487",
@@ -9,7 +10,7 @@
 		"transcriptChannelId": "1532353532655570974",
 		"panelTitle": "Support Tickets",
 		"panelDescription": "Click the button below to open a ticket.",
-		"channelNamePrefix": "ticket",
+		"channelNamePrefix": "",
 		"types": [
 			{
 				"key": "claim-giveaway",
