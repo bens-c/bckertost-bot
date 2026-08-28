@@ -892,6 +892,26 @@ function buildTicketMentions(ticket) {
     : [`<@${ticket.ownerId}>`, `<@&${config.applications.staffRoleId}>`];
 }
 
+function buildTicketAllowedMentions(ticket) {
+  const roleIds = [];
+
+  if (ticket.typeKey === "claim-giveaway") {
+    roleIds.push(config.applications.staffRoleId || config.tickets.supportRoleId);
+  } else {
+    roleIds.push(config.tickets.supportRoleId, config.applications.staffRoleId);
+  }
+
+  if (!roleIds.includes("1531395509628178583")) {
+    roleIds.push("1531395509628178583");
+  }
+
+  return {
+    users: [ticket.ownerId],
+    roles: [...new Set(roleIds.filter(Boolean))],
+    parse: []
+  };
+}
+
 async function refreshTicketPanelMessage(ticket) {
   if (!ticket || ticket.closed) {
     return false;
@@ -922,6 +942,7 @@ async function refreshTicketPanelMessage(ticket) {
 
   await panelMessage.edit({
     content: buildTicketMentions(ticket).join(" "),
+    allowedMentions: buildTicketAllowedMentions(ticket),
     embeds: [buildTicketPanelEmbed(ticket)],
     components: [buildTicketActionButtons(ticket)]
   }).catch(() => null);
@@ -3560,6 +3581,7 @@ async function createTicket(interaction, reason, ticketType, details = {}, optio
 
   const panelMessage = await channel.send({
     content: mentions.join(" "),
+    allowedMentions: buildTicketAllowedMentions(ticketRecord),
     embeds: [embed],
     components: [buildTicketActionButtons(ticketRecord)]
   });
