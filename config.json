@@ -1,127 +1,90 @@
 {
-	"botName": "Bckertost Bot",
-	"embedColor": "#f59e0b",
-	"playing": "Donutsmp.net",
-	"tickets": {
-		"enabled": true,
-		"categoryId": "1530230138225168487",
-		"supportRoleId": "1531395509628178583",
-		"devRoleIds": ["1516466724160147607"],
-		"transcriptChannelId": "1532353532655570974",
-		"panelTitle": "Support Tickets",
-		"panelDescription": "Click the button below to open a ticket.",
-		"channelNamePrefix": "",
-		"types": [
-			{
-				"key": "claim-giveaway",
-				"label": "Claim Giveaway"
-			},
-			{
-				"key": "report-someone",
-				"label": "Report Someone"
-			},
-			{
-				"key": "sponsor-giveaway",
-				"label": "Sponsor Giveaway"
-			},
-			{
-				"key": "partner-request",
-				"label": "Partner Request"
-			},
-			{
-				"key": "support",
-				"label": "Support"
-			}
-		]
-	},
-	"applications": {
-		"enabled": true,
-		"reviewChannelId": "1523069494044524736",
-		"staffRoleId": "1516473442042380398",
-		"panelTitle": "Staff Application",
-		"panelDescription": "Start your application here via DM.",
-		"roles": [
-			{
-				"key": "supporter",
-				"label": "Supporter",
-				"roleId": "1528175395587756123"
-			},
-			{
-				"key": "mod",
-				"label": "Mod",
-				"roleId": "1528176134515196115"
-			}
-		],
-		"questions": [
-			"What is your name and age?",
-			"Why do you want to join the team?",
-			"What experience do you have?",
-			"How many hours per week are you available?"
-		]
-	},
-	"giveaways": {
-		"enabled": true
-	},
-	"modLogs": {
-		"channelId": "1515807384294002719"
-	},
-	"serverStats": {
-		"enabled": true,
-		"categoryId": "1515807384294002719",
-		"channelIds": {
-			"members": "1542189768920801453",
-			"bots": "1542189770233352202",
-			"boosts": "1542189772498403369"
-		}
-	},
-	"games": {
-		"enabled": true
-	},
-	"guilds": {
-		"1293547276714905723": {
-			"tickets": {
-				"categoryId": "1530230138225168487",
-				"supportRoleId": "1531395509628178583",
-				"transcriptChannelId": "1532353532655570974"
-			},
-			"applications": {
-				"reviewChannelId": "1523069494044524736",
-				"staffRoleId": "1516473442042380398"
-			},
-			"modLogs": {
-				"channelId": "1515807384294002719"
-			},
-			"serverStats": {
-				"categoryId": "1515807384294002719",
-				"channelIds": {
-					"members": "1542189768920801453",
-					"bots": "1542189770233352202",
-					"boosts": "1542189772498403369"
-				}
-			}
-		},
-		"1542525895284367422": {
-			"tickets": {
-				"categoryId": "1542525897985228913",
-				"supportRoleId": "1542525895284367424",
-				"transcriptChannelId": "1542525897343762460"
-			},
-			"applications": {
-				"reviewChannelId": "1542525897343762460",
-				"staffRoleId": "1542525895284367427"
-			},
-			"modLogs": {
-				"channelId": "1542525897343762460"
-			},
-			"serverStats": {
-				"categoryId": "1542525896374882387",
-				"channelIds": {
-					"members": "1542525896374882388",
-					"bots": "1542525896374882389",
-					"boosts": "1542525896374882390"
-				}
-			}
-		}
-	}
+  "botName": "Bckertost Bot",
+  "embedColor": "#f59e0b",
+  "tickets": {
+    "enabled": true,
+    "categoryId": "1530230138225168487",
+    "supportRoleId": "1531395509628178583",
+    "devRoleIds": [],
+    "transcriptChannelId": "1532353532655570974",
+    "panelTitle": "Support Tickets",
+    "panelDescription": "Click the button below to open a ticket.",
+    "channelNamePrefix": "ticket",
+    "types": [
+      {
+        "key": "claim-giveaway",
+        "label": "Claim Giveaway"
+      },
+      {
+        "key": "report-someone",
+        "label": "Report Someone"
+      },
+      {
+        "key": "sponsor-giveaway",
+        "label": "Sponsor Giveaway"
+      },
+      {
+        "key": "partner-request",
+        "label": "Partner Request"
+      },
+      {
+        "key": "support",
+        "label": "Support"
+      }
+    ]
+  },
+  "applications": {
+    "enabled": true,
+    "reviewChannelId": "1532353532655570974",
+    "staffRoleId": "1516473442042380398",
+    "panelTitle": "Staff Application",
+    "panelDescription": "Start your application here via DM.",
+    "roles": [
+      {
+        "key": "supporter",
+        "label": "Supporter",
+        "roleId": "1528175395587756123"
+      },
+      {
+        "key": "mod",
+        "label": "Mod",
+        "roleId": "1528176134515196115"
+      }
+    ],
+    "questions": [
+      "What is your name and age?",
+      "Why do you want to join the team?",
+      "What experience do you have?",
+      "How many hours per week are you available?"
+    ]
+  },
+  "giveaways": {
+    "enabled": true,
+    "sponsorPings": {
+      "qdRoleId": "1532517282268577934",
+      "extraRoleId": "1512488293009199254",
+      "dailyRoleId": "1512488293009199254",
+      "weeklyRoleId": "1512488293009199254"
+    }
+  },
+  "selfRoles": {
+    "panelTitle": "Self Roles",
+    "panelDescription": "Click the buttons below to toggle your roles.",
+    "roles": []
+  },
+  "modLogs": {
+    "channelId": "1532353532655570974"
+  },
+  "serverStats": {
+    "enabled": true,
+    "categoryId": "1515807384294002719",
+    "channelIds": {
+      "members": "",
+      "bots": "",
+      "boosts": ""
+    }
+  },
+  "games": {
+    "enabled": true
+  }
 }
-
