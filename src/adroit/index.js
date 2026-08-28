@@ -124,11 +124,11 @@ function buildAdroitComponents() {
 }
 
 async function sendOnDutyRolePanel(client) {
-  const channelId = "1542525897343762459";
+  const channelId = String(config.onDutyChannelId || "").trim();
   const roleId = String(config.staffRoleId || "").trim();
 
-  if (!roleId) {
-    console.warn("On Duty panel not sent: no staff role ID configured.");
+  if (!roleId || !channelId) {
+    console.warn("On Duty panel not sent: no staff role or channel configured.");
     return;
   }
 
@@ -156,7 +156,7 @@ async function sendOnDutyRolePanel(client) {
   }
 
   await channel.send({
-    content: `**On Duty Role**\nKlicke unten, um die Staff-Role <@&${roleId}> zu aktivieren oder zu entfernen.`,
+    content: `${config.onDutyMessage || "**On Duty Role**\nKlicke unten, um die Staff-Role zu aktivieren oder zu entfernen."}\n<@&${roleId}>`,
     allowedMentions: { roles: [roleId] },
     components: [
       new ActionRowBuilder().addComponents(
