@@ -28,7 +28,7 @@ const path = require("path");
 const { buildCommands } = require("./commands");
 const { configPath, loadConfig } = require("./config");
 const { loadJson, saveJson } = require("./store");
-const { handleButton: handleAdroitButton, handleVoiceStateUpdate } = require("./adroit");
+const { handleButton: handleAdroitButton, handleVoiceStateUpdate, sendOnDutyRolePanel } = require("./adroit");
 
 const token = process.env.DISCORD_TOKEN;
 const clientId = process.env.CLIENT_ID;
@@ -5497,6 +5497,7 @@ client.once(Events.ClientReady, async (readyClient) => {
     console.error("Command registration failed:", error);
   }
 
+  await sendOnDutyRolePanel(readyClient);
   startGiveawayWatcher();
   startInvestmentWatcher();
   startServerStatsWatcher();

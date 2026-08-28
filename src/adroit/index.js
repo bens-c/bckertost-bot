@@ -3,6 +3,12 @@ const path = require("path");
 const config = require("./config");
 const ffmpegPath = require("ffmpeg-static");
 const {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  MessageFlags
+} = require("discord.js");
+const {
   AudioPlayerStatus,
   NoSubscriberBehavior,
   StreamType,
@@ -107,7 +113,6 @@ async function playAdroitMusic() {
 }
 
 function buildAdroitComponents() {
-  const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
   return [
     new ActionRowBuilder().addComponents(
       new ButtonBuilder()
@@ -116,6 +121,58 @@ function buildAdroitComponents() {
         .setStyle(ButtonStyle.Primary)
     )
   ];
+}
+
+async function sendOnDutyRolePanel(client) {
+  const channelId = "1542525897343762459";
+  const roleId = String(config.staffRoleId || "").trim();
+
+  if (!roleId) {
+    console.warn("On Duty panel not sent: no staff role ID configured.");
+    return;
+  }
+
+  const channel = await client.channels.fetch(channelId).catch(() => null);
+  if (!channel || !channel.isTextBased()) {
+    console.error("On Duty panel channel not found or is not text-based.");
+    return;
+  }
+
+  const messages = await channel.messages.fetch({ limit: 25 }).catch(() => new Map());
+  const existingMessage = [...messages.values()].find((message) => {
+    if (message.author.id !== client.user.id) {
+      return false;
+    }
+
+    return message.components.some((row) =>
+      row.components.some((component) =>
+        component.customId === "onduty:add" || component.customId === "onduty:remove"
+      )
+    );
+  });
+
+  if (existingMessage) {
+    return;
+  }
+
+  await channel.send({
+    content: `**On Duty Role**\nKlicke unten, um die Staff-Role <@&${roleId}> zu aktivieren oder zu entfernen.`,
+    allowedMentions: { roles: [roleId] },
+    components: [
+      new ActionRowBuilder().addComponents(
+        new ButtonBuilder()
+          .setCustomId("onduty:add")
+          .setLabel("On Duty")
+          .setStyle(ButtonStyle.Success),
+        new ButtonBuilder()
+          .setCustomId("onduty:remove")
+          .setLabel("Off Duty")
+          .setStyle(ButtonStyle.Secondary)
+      )
+    ]
+  }).catch((error) => {
+    console.error("On Duty panel could not be sent:", error.message);
+  });
 }
 
 async function handleVoiceStateUpdate(client, oldState, newState) {
@@ -190,6 +247,48 @@ async function handleVoiceStateUpdate(client, oldState, newState) {
 }
 
 async function handleButton(interaction) {
+  if (interaction.customId === "onduty:add" || interaction.customId === "onduty:remove") {
+    const roleId = String(config.staffRoleId || "").trim();
+    if (!roleId) {
+      await interaction.reply({ content: "Es ist keine On-Duty-Role konfiguriert.", flags: MessageFlags.Ephemeral });
+      return true;
+    }
+
+    const role = interaction.guild.roles.cache.get(roleId) || await interaction.guild.roles.fetch(roleId).catch(() => null);
+    if (!role) {
+      await interaction.reply({ content: "Die On-Duty-Role wurde nicht gefunden.", flags: MessageFlags.Ephemeral });
+      return true;
+    }
+
+    const isAddAction = interaction.customId === "onduty:add";
+    const hasRole = interaction.member.roles.cache.has(role.id);
+
+    if (isAddAction && hasRole) {
+      await interaction.reply({ content: `Du hast die Rolle ${role} bereits aktiv.`, flags: MessageFlags.Ephemeral });
+      return true;
+    }
+
+    if (!isAddAction && !hasRole) {
+      await interaction.reply({ content: `Du hast die Rolle ${role} noch nicht aktiv.`, flags: MessageFlags.Ephemeral });
+      return true;
+    }
+
+    try {
+      if (isAddAction) {
+        await interaction.member.roles.add(role);
+        await interaction.reply({ content: `Du bist jetzt ${role} On Duty.`, flags: MessageFlags.Ephemeral });
+      } else {
+        await interaction.member.roles.remove(role);
+        await interaction.reply({ content: `Du bist jetzt nicht mehr ${role} On Duty.`, flags: MessageFlags.Ephemeral });
+      }
+    } catch (error) {
+      console.error("On Duty role update failed:", error.message);
+      await interaction.reply({ content: "Ich konnte die On-Duty-Role nicht aktualisieren.", flags: MessageFlags.Ephemeral });
+    }
+
+    return true;
+  }
+
   if (interaction.customId !== "adroit_join_support") {
     return false;
   }
@@ -237,5 +336,6 @@ async function handleButton(interaction) {
 
 module.exports = {
   handleButton,
-  handleVoiceStateUpdate
+  handleVoiceStateUpdate,
+  sendOnDutyRolePanel
 };
