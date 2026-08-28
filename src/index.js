@@ -1236,13 +1236,17 @@ async function updateServerStats(guild) {
     return;
   }
 
-  const category = await guild.channels.fetch(statsConfig.categoryId).catch((error) => {
+  const category = await client.channels.fetch(statsConfig.categoryId).catch((error) => {
     console.error(`Failed to fetch server stats category ${statsConfig.categoryId}:`, error?.message || error);
     return null;
   });
 
   if (!category || category.type !== ChannelType.GuildCategory) {
     console.error(`Server stats category not found: ${statsConfig.categoryId}`);
+    return;
+  }
+
+  if (category.guildId !== guild.id) {
     return;
   }
 
