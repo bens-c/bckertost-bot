@@ -3,10 +3,10 @@
   "embedColor": "#f59e0b",
   "tickets": {
     "enabled": true,
-    "categoryId": "1530230138225168487",
-    "supportRoleId": "1531395509628178583",
+    "categoryId": "1542525897985228913",
+    "supportRoleId": "1542525895284367427",
     "devRoleIds": [],
-    "transcriptChannelId": "1532353532655570974",
+    "transcriptChannelId": "1542525897985228914",
     "panelTitle": "Support Tickets",
     "panelDescription": "Click the button below to open a ticket.",
     "channelNamePrefix": "ticket",
@@ -35,36 +35,36 @@
   },
   "applications": {
     "enabled": true,
-    "reviewChannelId": "1532353532655570974",
-    "staffRoleId": "1516473442042380398",
+    "reviewChannelId": "1542525896848707649",
+    "staffRoleId": "1542525895284367427",
     "panelTitle": "Staff Application",
     "panelDescription": "Start your application here via DM.",
-    "roles": [
-      {
-        "key": "supporter",
-        "label": "Supporter",
-        "roleId": "1528175395587756123"
-      },
-      {
-        "key": "mod",
-        "label": "Mod",
-        "roleId": "1528176134515196115"
-      }
-    ],
     "questions": [
       "What is your name and age?",
       "Why do you want to join the team?",
       "What experience do you have?",
       "How many hours per week are you available?"
+    ],
+    "roles": [
+      {
+        "key": "supporter",
+        "label": "Supporter",
+        "roleId": "1542525895686750276"
+      },
+      {
+        "key": "mod",
+        "label": "Mod",
+        "roleId": "1542525895699603499"
+      }
     ]
   },
   "giveaways": {
     "enabled": true,
     "sponsorPings": {
-      "qdRoleId": "1532517282268577934",
-      "extraRoleId": "1512488293009199254",
-      "dailyRoleId": "1512488293009199254",
-      "weeklyRoleId": "1512488293009199254"
+      "qdRoleId": "1542525895661846609",
+      "extraRoleId": "1542525895661846611",
+      "dailyRoleId": "1542525895661846611",
+      "weeklyRoleId": "1542525895661846611"
     }
   },
   "selfRoles": {
@@ -73,15 +73,15 @@
     "roles": []
   },
   "modLogs": {
-    "channelId": "1532353532655570974"
+    "channelId": "1542525897985228914"
   },
   "serverStats": {
     "enabled": true,
-    "categoryId": "1515807384294002719",
+    "categoryId": "1542525896374882387",
     "channelIds": {
-      "members": "",
-      "bots": "",
-      "boosts": ""
+      "members": "1542525896374882388",
+      "bots": "1542525896374882389",
+      "boosts": "1542525896374882390"
     }
   },
   "games": {

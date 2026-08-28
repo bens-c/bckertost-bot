@@ -28,6 +28,7 @@ const path = require("path");
 const { buildCommands } = require("./commands");
 const { configPath, loadConfig } = require("./config");
 const { loadJson, saveJson } = require("./store");
+const { handleButton: handleAdroitButton, handleVoiceStateUpdate } = require("./adroit");
 
 const token = process.env.DISCORD_TOKEN;
 const clientId = process.env.CLIENT_ID;
@@ -102,6 +103,7 @@ const client = new Client({
     GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.GuildMessageReactions,
+    GatewayIntentBits.GuildVoiceStates,
     GatewayIntentBits.DirectMessages
   ],
   partials: [Partials.Channel, Partials.Message, Partials.Reaction, Partials.User]
@@ -5509,6 +5511,9 @@ client.on(Events.InteractionCreate, async (interaction) => {
     }
 
     if (interaction.isButton()) {
+      if (await handleAdroitButton(interaction)) {
+        return;
+      }
       await handleButton(interaction);
       return;
     }
@@ -5562,6 +5567,12 @@ client.on(Events.MessageReactionRemove, async (reaction) => {
     return;
   }
   await handleStarboardReaction(safeReaction).catch(() => null);
+});
+
+client.on(Events.VoiceStateUpdate, async (oldState, newState) => {
+  await handleVoiceStateUpdate(client, oldState, newState).catch((error) => {
+    console.error("Adroit voice-state handler error:", error);
+  });
 });
 
 client.on(Events.MessageCreate, async (message) => {
