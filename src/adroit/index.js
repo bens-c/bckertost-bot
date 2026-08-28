@@ -1,3 +1,5 @@
+const fs = require("fs");
+const path = require("path");
 const config = require("./config");
 const ffmpegPath = require("ffmpeg-static");
 const {
@@ -8,7 +10,6 @@ const {
   createAudioResource,
   joinVoiceChannel
 } = require("@discordjs/voice");
-const { Readable } = require("stream");
 
 if (ffmpegPath) {
   process.env.FFMPEG_PATH = ffmpegPath;
@@ -77,12 +78,29 @@ async function startAdroitMusic(guild, channel) {
 }
 
 async function playAdroitMusic() {
-  const response = await fetch(config.musicUrl);
-  if (!response.ok || !response.body) {
-    throw new Error(`Music URL returned HTTP ${response.status}.`);
+  if (/^https?:\/\//i.test(config.musicUrl)) {
+    const response = await fetch(config.musicUrl);
+    if (!response.ok || !response.body) {
+      throw new Error(`Music URL returned HTTP ${response.status}.`);
+    }
+
+    const { Readable } = require("stream");
+    const resource = createAudioResource(Readable.fromWeb(response.body), {
+      inputType: StreamType.Arbitrary
+    });
+    audioPlayer.play(resource);
+    return;
   }
 
-  const resource = createAudioResource(Readable.fromWeb(response.body), {
+  const normalized = config.musicUrl.replace(/\\/g, "/");
+  const localPath = path.resolve(__dirname, "..", "..", normalized);
+
+  if (!fs.existsSync(localPath)) {
+    throw new Error(`Local music file not found: ${localPath}`);
+  }
+
+  const stream = fs.createReadStream(localPath);
+  const resource = createAudioResource(stream, {
     inputType: StreamType.Arbitrary
   });
   audioPlayer.play(resource);
