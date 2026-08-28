@@ -4,6 +4,7 @@ const fs = require("fs");
 const {
   ActionRowBuilder,
   AttachmentBuilder,
+  ActivityType,
   ButtonBuilder,
   ButtonStyle,
   ChannelType,
@@ -265,9 +266,21 @@ function getSponsorPingLayout(type) {
 
 async function replySponsorPing(interaction, type) {
   const entry = getSponsorPingLayout(type);
+  const role = entry?.roleId && interaction.guild
+    ? await interaction.guild.roles.fetch(entry.roleId).catch(() => null)
+    : null;
+
+  if (entry?.roleId && !role) {
+    await interaction.reply({
+      content: `The configured ${entry.title} ping role was not found in this server. Check config role ID: ${entry.roleId}`,
+      flags: MessageFlags.Ephemeral
+    });
+    return;
+  }
+
   await interaction.reply({
     content: buildSponsorPingMessage(type),
-    allowedMentions: entry?.roleId ? { roles: [entry.roleId] } : { parse: [] }
+    allowedMentions: role ? { parse: [], roles: [role.id] } : { parse: [] }
   });
 }
 
@@ -1223,7 +1236,11 @@ async function updateServerStats(guild) {
     return;
   }
 
-  const category = guild.channels.cache.get(statsConfig.categoryId);
+  const category = await guild.channels.fetch(statsConfig.categoryId).catch((error) => {
+    console.error(`Failed to fetch server stats category ${statsConfig.categoryId}:`, error?.message || error);
+    return null;
+  });
+
   if (!category || category.type !== ChannelType.GuildCategory) {
     console.error(`Server stats category not found: ${statsConfig.categoryId}`);
     return;
@@ -4152,6 +4169,37 @@ async function handleCommand(interaction) {
     await interaction.channel.send("# Pennis");
     await interaction.reply({
       content: "Message sent.",
+      flags: MessageFlags.Ephemeral
+    });
+    return;
+  }
+
+  if (interaction.commandName === "matenece") {
+    const channel = interaction.options.getChannel("channel") || interaction.channel;
+    const message = interaction.options.getString("message") ||
+      "# Maintenance\nThe server is currently in maintenance. Please wait for updates.";
+
+    if (!channel || !channel.isTextBased()) {
+      await interaction.reply({
+        content: "Please choose a text channel.",
+        flags: MessageFlags.Ephemeral
+      });
+      return;
+    }
+
+    client.user.setPresence({
+      status: "dnd",
+      activities: [
+        {
+          name: "Maintenance",
+          type: ActivityType.Watching
+        }
+      ]
+    });
+
+    await channel.send(message);
+    await interaction.reply({
+      content: `Maintenance message sent in ${channel}.`,
       flags: MessageFlags.Ephemeral
     });
     return;

@@ -155,6 +155,21 @@ function buildCommands() {
       .setDescription("Posts a fixed message.")
       .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
     new SlashCommandBuilder()
+      .setName("matenece")
+      .setDescription("Posts a maintenance message.")
+      .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
+      .addChannelOption((option) =>
+        option
+          .setName("channel")
+          .setDescription("The channel where the maintenance message should be sent.")
+      )
+      .addStringOption((option) =>
+        option
+          .setName("message")
+          .setDescription("Optional custom maintenance message.")
+          .setMaxLength(1500)
+      ),
+    new SlashCommandBuilder()
       .setName("clear")
       .setDescription("Deletes a number of recent messages.")
       .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
