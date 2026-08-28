@@ -4200,7 +4200,7 @@ async function handleCommand(interaction) {
     return;
   }
 
-  if (interaction.commandName === "matenece") {
+  if (["matenece", "matenence"].includes(interaction.commandName)) {
     const channel = interaction.options.getChannel("channel") || interaction.channel;
     const message = interaction.options.getString("message") ||
       "# Maintenance\nThe server is currently in maintenance. Please wait for updates.";
