@@ -1,5 +1,6 @@
 node_modules/
 .env
+ideas.txt
 
 # Local runtime data and development toolchains
 config.json
